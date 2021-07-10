@@ -1,16 +1,20 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule }                         from '@angular/core';
+import { BrowserModule }                    from '@angular/platform-browser';
+import localeRu                             from '@angular/common/locales/ru';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import { FormsModule }                      from '@angular/forms';
+import { AppComponent }                     from './app.component';
 
-import { AppComponent } from './app.component';
+registerLocaleData(localeRu);
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
-    BrowserModule
+    CommonModule,
+    BrowserModule,
+    FormsModule
   ],
-  providers: [],
+  declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'kpmg-training-app';
+
+  str = 'My super variable';
+  collection = {name: 'Alex', age: 15};
+
+  names = ['Alex', 'Peter', 'Michael'];
+  namesCollection = [{name: 'Alex'}, {name: 'Peter'}, {name: 'Michael'}];
+
+  isIfVisible: boolean;
+
+  date = new Date();
+  num = 0.555555;
+
 }
