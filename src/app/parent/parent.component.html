@@ -1,0 +1,16 @@
+<!--<p>parent works!</p>-->
+<!--parentCount: {{parentCount}}-->
+<!--<p *ngIf="parentCount === 12">Equals to 12</p>-->
+
+<!--<button (click)="parentCountIncrease.emit(0)">Parent increase count</button>-->
+<p>PARENT COMPONENT:</p>
+<p>parentCount: {{parentCount}}</p>
+<input [(ngModel)]="parentCount" (ngModelChange)="parentCountChange.emit(+parentCount)"/>
+<!--<hr/>-->
+<!--<app-child [childCount]="parentCount"-->
+<!--           (childCountChange)="parentCount = $event; parentCountChange.emit(parentCount)">-->
+<!--</app-child>-->
+<hr/>
+<app-child [(childCount)]="parentCount"
+           (childCountChange)="(parentCount !== 15) && parentCountChange.emit(parentCount)">
+</app-child>

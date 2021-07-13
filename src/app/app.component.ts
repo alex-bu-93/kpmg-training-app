@@ -7,15 +7,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  str = 'My super variable';
-  collection = {name: 'Alex', age: 15};
+  // str = 'My super variable';
+  // collection = {name: 'Alex', age: 15};
+  //
+  // names = ['Alex', 'Peter', 'Michael'];
+  // namesCollection = [{name: 'Alex'}, {name: 'Peter'}, {name: 'Michael'}];
+  //
+  // isIfVisible: boolean;
+  //
+  // date = new Date();
+  // num = 0.555555;
 
-  names = ['Alex', 'Peter', 'Michael'];
-  namesCollection = [{name: 'Alex'}, {name: 'Peter'}, {name: 'Michael'}];
-
-  isIfVisible: boolean;
-
-  date = new Date();
-  num = 0.555555;
-
+  appCount = 10;
 }
