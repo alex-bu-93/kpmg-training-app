@@ -1,0 +1,12 @@
+<p>TRAINING THREE COMPONENT:</p>
+<p>appCount: {{appCount}}</p>
+<button (click)="appCount = appCount + 1">Increase count</button>
+<hr/>
+<app-parent [parentCount]="appCount"
+            (parentCountChange)="appCount = $event">
+</app-parent>
+<hr/>
+<app-parent [(parentCount)]="appCount"></app-parent>
+<hr/>
+
+<app-input-as-attribute isReadonly></app-input-as-attribute>

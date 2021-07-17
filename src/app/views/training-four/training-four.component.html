@@ -1,0 +1,5 @@
+<p *ngFor="let item of items">
+  id:
+  <a [routerLink]="['layout', 'training-four', item.id]">{{item.id}}</a>
+  label: {{item.label}}
+</p>

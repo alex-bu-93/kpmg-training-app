@@ -1,0 +1,53 @@
+<p>Two-way data binding (string)</p>
+<p>text: {{str}}</p>
+<input [(ngModel)]="str"/>
+<button (click)="str = null">Clear</button>
+<hr/>
+
+<p>Two-way data binding (collection)</p>
+<pre>{{collection | json}}</pre>
+<input [(ngModel)]="collection.name"/>
+<input [(ngModel)]="collection.age"/>
+<hr/>
+
+<p>ngFor use (string)</p>
+<pre>{{names | json}}</pre>
+<div *ngFor="let item of names" style="margin: 0">{{item}}</div>
+<hr/>
+
+<p>ngFor use (collection)</p>
+<pre>{{namesCollection | json}}</pre>
+<div *ngFor="let item of namesCollection" style="margin: 0">{{item.name}}</div>
+<hr/>
+
+<p *ngFor="let letter of ['a','b']
+           let index = index
+           let first = first
+           let last = last
+           let count = count
+           let odd = odd
+           let even = even">
+  index: {{index}}<br/>
+  letter: {{letter}}<br/>
+  first: {{first}}<br/>
+  last: {{last}}<br/>
+  count: {{count}}<br/>
+  odd: {{odd}}<br/>
+  even: {{even}}
+</p>
+<hr/>
+
+<p>isIfVisible: {{isIfVisible}}</p>
+<button (click)="isIfVisible = !isIfVisible">Change isVisible</button>
+<p *ngIf="isIfVisible">Visible text conditionally</p>
+<hr/>
+
+<p>date: {{date | date : 'shortTime'}}</p>
+<p>number: {{num | number : '5.1-2'}}</p>
+<p>currency: {{num | currency : '' : 'symbol' : '5.1-2' : 'en'}}</p>
+<p>percent: {{num | percent}}</p>
+<hr/>
+
+<p>text: {{str}}</p>
+<input [ngModel]="str"/>
+<button (click)="str = 'My usual variable'">Change str</button>

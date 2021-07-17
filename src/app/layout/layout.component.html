@@ -1,0 +1,13 @@
+<div style="display: flex; flex-direction: column; height: 100vh">
+  <div class="header">
+    <a [routerLink]="['training-two']">Training 2</a>
+    <a [routerLink]="['training-three']">Training 3</a>
+    <a [routerLink]="['training-four']">Training 4</a>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <div style="margin-top: auto" class="footer">
+    @2021 Footer
+  </div>
+</div>
