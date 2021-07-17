@@ -10,7 +10,7 @@ import { NopComponent }                  from './views/nop/nop.component';
 const routes: Routes = [
   {path: '', redirectTo: 'training-two', pathMatch: 'full'},
   {
-    path: 'layout', component: LayoutComponent, children: [
+    path: '', component: LayoutComponent, children: [
       {path: 'training-two', component: TrainingTwoComponent},
       {path: 'training-three', component: TrainingThreeComponent},
       {path: 'training-four', component: TrainingFourComponent},
