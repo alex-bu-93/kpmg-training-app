@@ -1,0 +1,54 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-serve qweqweqwr",
+      "author": "typicode"
+    },
+    {
+      "title": "title",
+      "author": "author",
+      "id": 2
+    },
+    {
+      "title": "test",
+      "author": "test",
+      "id": 3
+    },
+    {
+      "title": "qwe",
+      "author": "qwe",
+      "id": 4
+    },
+    {
+      "title": "test1",
+      "author": "test1",
+      "id": 5
+    },
+    {
+      "title": "test1",
+      "author": "test1",
+      "id": 6
+    },
+    {
+      "title": "test1",
+      "author": "test1",
+      "id": 7
+    },
+    {
+      "title": "test1",
+      "author": "test1",
+      "id": 8
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

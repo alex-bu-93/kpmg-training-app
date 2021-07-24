@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styles: [`
     a { margin: 10px }
     .header { min-height: 50px; background-color: lightblue; display: flex; align-items: center }
-    .footer { min-height: 50px; background-color: lightblue; display: flex; align-items: center }
+    .footer { min-height: 50px; background-color: lightblue; display: flex; align-items: center; justify-content: center }
     .content { padding: 16px }
   `]
 })

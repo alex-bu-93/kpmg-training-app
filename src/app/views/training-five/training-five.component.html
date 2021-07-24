@@ -1,0 +1,20 @@
+<!--<span *ngIf="isLoading">loading ...</span>-->
+
+<!--<pre *ngIf="users">{{users | json}}</pre>-->
+
+<button (click)="getPosts()">Get posts</button>
+<button (click)="postsSubscription?.unsubscribe()">Unsubscribe posts</button>
+
+<pre>{{posts | json}}</pre>
+
+<hr/>
+
+<button [disabled]="isLoading" (click)="createPost()">
+  <span *ngIf="!isLoading">Create post</span>
+  <span *ngIf="isLoading">loading...</span>
+</button>
+
+<pre>{{post | json}}</pre>
+title: <input [(ngModel)]="post.title"/>
+<br/>
+author: <input [(ngModel)]="post.author"/>

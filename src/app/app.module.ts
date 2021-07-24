@@ -2,6 +2,7 @@ import { NgModule }                         from '@angular/core';
 import { BrowserModule }                    from '@angular/platform-browser';
 import localeRu                             from '@angular/common/locales/ru';
 import { CommonModule, registerLocaleData } from '@angular/common';
+import { HttpClientModule }                 from '@angular/common/http';
 import { FormsModule }                      from '@angular/forms';
 import { AppComponent }                     from './app.component';
 import { ParentComponent }                  from './views/training-three/parent/parent.component';
@@ -12,8 +13,9 @@ import { TrainingTwoComponent }             from './views/training-two/training-
 import { TrainingThreeComponent }           from './views/training-three/training-three.component';
 import { TrainingFourComponent }            from './views/training-four/training-four.component';
 import { LayoutComponent }                  from './layout/layout.component';
-import { TrainingFourDetailedComponent } from './views/training-four/training-four-detailed/training-four-detailed.component';
-import { NopComponent } from './views/nop/nop.component';
+import { TrainingFourDetailedComponent }    from './views/training-four/training-four-detailed/training-four-detailed.component';
+import { NopComponent }                     from './views/nop/nop.component';
+import { TrainingFiveComponent }            from './views/training-five/training-five.component';
 
 registerLocaleData(localeRu);
 
@@ -22,6 +24,7 @@ registerLocaleData(localeRu);
     CommonModule,
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   declarations: [
@@ -32,6 +35,7 @@ registerLocaleData(localeRu);
     TrainingTwoComponent,
     TrainingThreeComponent,
     TrainingFourComponent,
+    TrainingFiveComponent,
     LayoutComponent,
     TrainingFourDetailedComponent,
     NopComponent
