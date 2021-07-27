@@ -1,7 +1,7 @@
 import { Component, OnDestroy }                                                   from '@angular/core';
 import { interval, Observable, of, Subscription, throwError, timer }              from 'rxjs';
 import { catchError, delay, finalize, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { Post, TrainingFiveService }                                              from './training-five.service';
+import { Post, PostsService }                                                     from '../../services/posts.service';
 
 interface User {
   name: string;
@@ -49,10 +49,10 @@ export class TrainingFiveComponent implements OnDestroy {
 
   posts: Post[];
   postsSubscription: Subscription;
-  posts$: Observable<Post[]> = this.service.getPosts();
+  posts$: Observable<Post[]> = this.postsService.getPosts();
 
   constructor(
-    private service: TrainingFiveService
+    private postsService: PostsService
   ) {
     // this.isLoading = true;
     // this.usersSubscription = this.users$.subscribe(
@@ -70,7 +70,7 @@ export class TrainingFiveComponent implements OnDestroy {
 
   createPost(): void {
     this.isLoading = true;
-    this.service.postPost(this.post).pipe(
+    this.postsService.postPost(this.post).pipe(
       tap(res => console.log(res)),
       tap(() => this.getPosts()),
       finalize(() => this.isLoading = false)
@@ -79,6 +79,7 @@ export class TrainingFiveComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.postsSubscription?.unsubscribe();
     // this.destroy$.next();
   }
 }

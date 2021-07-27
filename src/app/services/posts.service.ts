@@ -9,7 +9,7 @@ export interface Post {
 }
 
 @Injectable({providedIn: 'root'})
-export class TrainingFiveService {
+export class PostsService {
 
   constructor(
     private http: HttpClient

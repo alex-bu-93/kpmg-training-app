@@ -1,9 +1,9 @@
 <div style="display: flex; flex-direction: column; height: 100vh">
   <div class="header">
-    <a [routerLink]="['training-two']">Training 2</a>
-    <a [routerLink]="['training-three']">Training 3</a>
-    <a [routerLink]="['training-four']">Training 4</a>
-    <a [routerLink]="['training-five']">Training 5</a>
+    <a *ngFor="let item of ['two', 'three', 'four', 'five', 'six']"
+       [routerLink]="['training-' + item]">
+      Training {{item}}
+    </a>
   </div>
   <div class="content">
     <router-outlet></router-outlet>

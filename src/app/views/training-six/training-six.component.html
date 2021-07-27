@@ -1,0 +1,22 @@
+<button (click)="isPostsVisible = true">Make posts visible</button>
+<button (click)="posts$ = null">Unsubscribe posts</button>
+
+<pre *ngIf="isPostsVisible && (posts$ | async) as posts">
+  {{posts | json}}
+</pre>
+
+<hr/>
+<button (click)="posts$ = getPosts()">Get posts</button>
+
+<hr/>
+<pre *ngIf="posts$ | async as posts else loadingTmp">
+  {{posts | json}}
+</pre>
+<span *ngIf="error" style="color: red">{{error}}</span>
+<ng-template #loadingTmp>
+  <ng-container *ngIf="!error">loading ...</ng-container>
+</ng-template>
+
+<!--<hr/>-->
+<!--<app-request-wrapper [request$]="posts$"></app-request-wrapper>-->
+

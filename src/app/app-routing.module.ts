@@ -6,6 +6,7 @@ import { TrainingThreeComponent }        from './views/training-three/training-t
 import { TrainingFourComponent }         from './views/training-four/training-four.component';
 import { TrainingFourDetailedComponent } from './views/training-four/training-four-detailed/training-four-detailed.component';
 import { TrainingFiveComponent }         from './views/training-five/training-five.component';
+import { TrainingSixComponent }          from './views/training-six/training-six.component';
 import { NopComponent }                  from './views/nop/nop.component';
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
       {path: 'training-three', component: TrainingThreeComponent},
       {path: 'training-four', component: TrainingFourComponent},
       {path: 'training-four/:id', data: {a: 15}, component: TrainingFourDetailedComponent},
-      {path: 'training-five', component: TrainingFiveComponent}
+      {path: 'training-five', component: TrainingFiveComponent},
+      {path: 'training-six', component: TrainingSixComponent}
     ]
   },
   {path: '**', component: NopComponent}
