@@ -2,12 +2,19 @@
 
 <!--<pre *ngIf="users">{{users | json}}</pre>-->
 
-<button (click)="getPosts()">Get posts</button>
+<button class="btn btn-outline-success" (click)="getPosts()">Get posts</button>
 <button (click)="postsSubscription?.unsubscribe()">Unsubscribe posts</button>
 
 <pre>{{posts | json}}</pre>
 
 <hr/>
+
+<button nz-button
+        class="btn btn-success"
+        [nzLoading]="isLoading"
+        (click)="createPost()">
+  Create post
+</button>
 
 <button [disabled]="isLoading" (click)="createPost()">
   <span *ngIf="!isLoading">Create post</span>

@@ -1,8 +1,8 @@
 import { Component }                 from '@angular/core';
 import { HttpErrorResponse }         from '@angular/common/http';
 import { catchError, finalize, tap } from 'rxjs/operators';
-import { Observable, of }            from 'rxjs';
-import { Post, PostsService }        from '../../services/posts.service';
+import { Observable, of }     from 'rxjs';
+import { Post, PostsService } from '../../services/posts.service';
 
 @Component({
   selector: 'app-training-six',
