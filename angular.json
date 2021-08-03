@@ -29,8 +29,8 @@
               }
             ],
             "styles": [
-              "src/styles/styles.scss",
-              "src/styles/ant-design/styles.less"
+              "src/styles/ant-design/styles.less",
+              "src/styles/styles.scss"
             ],
             "scripts": []
           },

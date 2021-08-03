@@ -1,12 +1,12 @@
 <nz-layout style="min-height: 100vh" class="layout">
-  <nz-header>
-    <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item>nav 1</li>
-      <li nz-menu-item>nav 2</li>
-      <li nz-menu-item>nav 3</li>
-    </ul>
+  <nz-header class="d-flex align-items-center">
+    <nz-tabset nzLinkRouter>
+      <nz-tab><a *nzTabLink nz-tab-link [routerLink]="['tickets']">Обращения</a></nz-tab>
+      <nz-tab><a *nzTabLink nz-tab-link [routerLink]="['timesheet']">Расписание</a></nz-tab>
+      <nz-tab><a *nzTabLink nz-tab-link [routerLink]="['analysis']">Аналитика</a></nz-tab>
+    </nz-tabset>
   </nz-header>
-  <nz-content>
+  <nz-content class="p-3">
     <router-outlet></router-outlet>
   </nz-content>
   <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>

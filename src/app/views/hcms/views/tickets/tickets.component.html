@@ -1,0 +1,40 @@
+<ng-container *ngIf="tickets$ | async"></ng-container>
+
+<ng-container *ngIf="isTicketsLoading"><i nz-icon nzType="loading"></i> Loading ... </ng-container>
+<ng-container *ngIf="!isTicketsLoading">
+  <div class="mb-2">
+    <button nz-button class="btn-outline-primary" (click)="isModalVisible = true">Новое обращение</button>
+  </div>
+
+  <nz-table #basicTable
+            nzBordered nzSize="small"
+            nzNoResult="Нет данных для отображения"
+            [nzPageSize]="20"
+            [nzData]="tickets">
+    <thead>
+    <tr>
+      <th style="width: 20px">#</th>
+      <th style="width: 50px">Категория</th>
+      <th>Дата (Время)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ticket of basicTable.data">
+      <td>{{ ticket.id }}</td>
+      <td>{{ ticket.category }}</td>
+      <td>{{ ticket.date }} ({{ ticket.time }})</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-modal nzTitle="Новое обращение"
+            [(nzVisible)]="isModalVisible"
+            (nzOnCancel)="isModalVisible = false"
+            (nzOnOk)="isModalVisible = false">
+    <ng-container *nzModalContent>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+    </ng-container>
+  </nz-modal>
+</ng-container>
