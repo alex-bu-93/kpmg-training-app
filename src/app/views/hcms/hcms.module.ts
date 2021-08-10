@@ -7,6 +7,7 @@ import { NzTableModule }        from 'ng-zorro-antd/table';
 import { NzIconModule }         from 'ng-zorro-antd/icon';
 import { NzModalModule }        from 'ng-zorro-antd/modal';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzTypographyModule }   from 'ng-zorro-antd/typography';
 import { TicketsComponent }     from './views/tickets';
 import { TimesheetComponent }   from './views/timesheet';
 import { AnalysisComponent }    from './views/analysis';
@@ -20,7 +21,8 @@ const ANT_DESIGN_MODULES = [
   NzTableModule,
   NzIconModule,
   NzModalModule,
-  NzNotificationModule
+  NzNotificationModule,
+  NzTypographyModule
 ];
 
 @NgModule({

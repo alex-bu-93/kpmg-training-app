@@ -5,24 +5,50 @@
   <div class="mb-2">
     <button nz-button class="btn-outline-primary" (click)="isModalVisible = true">Новое обращение</button>
   </div>
-
   <nz-table #basicTable
             nzBordered nzSize="small"
             nzNoResult="Нет данных для отображения"
-            [nzPageSize]="20"
             [nzData]="tickets">
     <thead>
     <tr>
       <th style="width: 20px">#</th>
       <th style="width: 50px">Категория</th>
-      <th>Дата (Время)</th>
+      <th>Дата</th>
+      <th>Телефон</th>
+      <th>Нарушение</th>
+      <th>Информатор</th>
+      <th>Контакты</th>
+      <th>Описание</th>
+      <th>Полное описание</th>
+      <th>Вовлеченное подразделение</th>
+      <th>Вовлеченные лица</th>
+      <th>Информированные лица</th>
+      <th>Доказательства</th>
+      <th>Информация</th>
+      <th>Дата репорта</th>
+      <th>Реакция на инцидент</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let ticket of basicTable.data">
-      <td>{{ ticket.id }}</td>
+    <tr *ngFor="let ticket of basicTable.data" class="align-baseline">
+      <td class="text-nowrap">{{ ticket.id }} / {{ticket.uniqueNumber}}</td>
       <td>{{ ticket.category }}</td>
       <td>{{ ticket.date }} ({{ ticket.time }})</td>
+      <td>{{ticket.link}}</td>
+      <td>{{ticket.violation}}</td>
+      <td>{{ticket.informer}}, {{ticket.informerPosition}}</td>
+      <td>{{ticket.informerContacts}}</td>
+      <td>{{ticket.shortDescription}}</td>
+      <td>
+        <p nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="5">{{ticket.fullDescription}}</p>
+      </td>
+      <td>{{ticket.involvedDepartment}}</td>
+      <td>{{ticket.involvedPersons}}</td>
+      <td>{{ticket.informedPersons}}</td>
+      <td>{{ticket.evidences}}</td>
+      <td>{{ticket.additionalInformation}}</td>
+      <td>{{ticket.ticketDateSent}}</td>
+      <td>{{ticket.companyActions}}</td>
     </tr>
     </tbody>
   </nz-table>
