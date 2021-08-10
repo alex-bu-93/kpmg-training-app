@@ -1,5 +1,6 @@
 import { NgModule }             from '@angular/core';
 import { CommonModule }         from '@angular/common';
+import { ReactiveFormsModule }  from '@angular/forms';
 import { NzLayoutModule }       from 'ng-zorro-antd/layout';
 import { NzTabsModule }         from 'ng-zorro-antd/tabs';
 import { NzButtonModule }       from 'ng-zorro-antd/button';
@@ -8,6 +9,7 @@ import { NzIconModule }         from 'ng-zorro-antd/icon';
 import { NzModalModule }        from 'ng-zorro-antd/modal';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzTypographyModule }   from 'ng-zorro-antd/typography';
+import { NzInputModule }        from 'ng-zorro-antd/input';
 import { TicketsComponent }     from './views/tickets';
 import { TimesheetComponent }   from './views/timesheet';
 import { AnalysisComponent }    from './views/analysis';
@@ -22,12 +24,14 @@ const ANT_DESIGN_MODULES = [
   NzIconModule,
   NzModalModule,
   NzNotificationModule,
-  NzTypographyModule
+  NzTypographyModule,
+  NzInputModule
 ];
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     HcmsRoutingModule,
     ANT_DESIGN_MODULES
   ],
