@@ -1,0 +1,28 @@
+<div *ngIf="control"
+     class="form-group position-relative"
+     [class.mb-0]="noMarginBottom"
+     [class.d-flex]="isInlineMode">
+  <app-reactive-label *ngIf="label"
+                      [label]="label"
+                      [fieldId]="fieldId"
+                      [tooltip]="tooltip"
+                      [hasRequiredIndicator]="hasRequiredIndicator">
+  </app-reactive-label>
+  <nz-form-item>
+    <nz-form-control [nzValidateStatus]="validationErrors ? 'error' : null">
+      <nz-select nzMode="multiple"
+                 nzNotFoundContent="Нет данных для отображения"
+                 nzAllowClear
+                 class="w-100"
+                 [id]="fieldId"
+                 [formControl]="control"
+                 [nzPlaceHolder]="placeholder || 'Выберите'"
+                 (ngModelChange)="onModelChange($event)">
+        <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <app-validation-message *ngIf="!noValidationMark && !noValidationMessage"
+                          [validationErrors]="validationErrors">
+  </app-validation-message>
+</div>

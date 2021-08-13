@@ -1,0 +1,24 @@
+<div  *ngIf="control"
+      class="form-group position-relative"
+      [class.mb-0]="noMarginBottom"
+      [class.d-flex]="isInlineMode">
+  <app-reactive-label *ngIf="label"
+                      [label]="label"
+                      [fieldId]="fieldId"
+                      [tooltip]="tooltip"
+                      [hasRequiredIndicator]="hasRequiredIndicator">
+  </app-reactive-label>
+  <nz-form-item>
+    <nz-form-control [nzValidateStatus]="validationErrors ? 'error' : null">
+      <nz-date-picker nzFormat="dd.MM.yyyy"
+                      class="w-100"
+                      [id]="fieldId"
+                      [formControl]="control"
+                      [nzDisabledDate]="disabledDatesFn">
+      </nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <app-validation-message *ngIf="!noValidationMark && !noValidationMessage"
+                          [validationErrors]="validationErrors">
+  </app-validation-message>
+</div>

@@ -43,9 +43,7 @@
       <td>{{ticket.informer}}, {{ticket.informerPosition}}</td>
       <td>{{ticket.informerContacts}}</td>
       <td>{{ticket.shortDescription}}</td>
-      <td>
-        <p nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="5">{{ticket.fullDescription}}</p>
-      </td>
+      <td><p nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="5">{{ticket.fullDescription}}</p></td>
       <td>{{ticket.involvedDepartment}}</td>
       <td>{{ticket.involvedPersons}}</td>
       <td>{{ticket.informedPersons}}</td>
@@ -61,21 +59,28 @@
 
 <nz-modal nzTitle="Новое обращение"
           nzOkText="Добавить"
+          [nzStyle]="{top: '20px'}"
+          [nzWidth]="1200"
           [(nzVisible)]="isModalVisible"
           (nzOnCancel)="closeModal()"
           (nzOnOk)="onSubmitTicket()">
-  <ng-container *nzModalContent>
-    <form [formGroup]="ticketFg">
-      <input nz-input placeholder="Телефон" formControlName="link"/>
-      <span *ngIf="ticketFg.controls.link.touched && ticketFg.controls.link.invalid"
-            class="text-danger">
-          Необходимо заполнить
-        </span>
-      <input nz-input placeholder="Категория" formControlName="category"/>
-      <span *ngIf="ticketFg.controls.category.touched && ticketFg.controls.category.invalid"
-            class="text-danger">
-          Необходимо заполнить
-        </span>
-    </form>
-  </ng-container>
+  <form *nzModalContent [formGroup]="ticketFg" class="row" (ngSubmit)="onSubmitTicket()">
+    <app-reactive-input fieldId="category" label="Категория" class="col-4" [control]="ticketFg.controls.category"></app-reactive-input>
+    <app-reactive-date-picker fieldId="date" label="Дата" class="col-4" [control]="ticketFg.controls.date"></app-reactive-date-picker>
+    <app-reactive-input fieldId="time" label="Время" class="col-4" [control]="ticketFg.controls.time"></app-reactive-input>
+    <app-reactive-input fieldId="link" label="Телефон" class="col-4" [control]="ticketFg.controls.link"></app-reactive-input>
+    <app-reactive-input fieldId="violation" label="Нарушение" class="col-4" [control]="ticketFg.controls.violation"></app-reactive-input>
+    <app-reactive-input fieldId="informer" label="Информатор" class="col-4" [control]="ticketFg.controls.informer"></app-reactive-input>
+    <app-reactive-input fieldId="informerPosition" label="Должность информатора" class="col-4" [control]="ticketFg.controls.informerPosition"></app-reactive-input>
+    <app-reactive-input fieldId="informerContacts" label="Контакты информатора" class="col-4" [control]="ticketFg.controls.informerContacts"></app-reactive-input>
+    <app-reactive-input fieldId="shortDescription" label="Краткое описание" class="col-4" [control]="ticketFg.controls.shortDescription"></app-reactive-input>
+    <app-reactive-input fieldId="fullDescription" label="Полное описание" class="col-4" [control]="ticketFg.controls.fullDescription"></app-reactive-input>
+    <app-reactive-input fieldId="involvedDepartment" label="Вовлеченное подразделение" class="col-4" [control]="ticketFg.controls.involvedDepartment"></app-reactive-input>
+    <app-reactive-input fieldId="involvedPersons" label="Вовлеченные лица" class="col-4" [control]="ticketFg.controls.involvedPersons"></app-reactive-input>
+    <app-reactive-input fieldId="informedPersons" label="Информированные лица" class="col-4" [control]="ticketFg.controls.informedPersons"></app-reactive-input>
+    <app-reactive-input fieldId="evidences" label="Доказательства" class="col-4" [control]="ticketFg.controls.evidences"></app-reactive-input>
+    <app-reactive-input fieldId="additionalInformation" label="Информация" class="col-4" [control]="ticketFg.controls.additionalInformation"></app-reactive-input>
+    <app-reactive-input fieldId="ticketDateSent" label="Дата репорта" class="col-4" [control]="ticketFg.controls.ticketDateSent"></app-reactive-input>
+    <app-reactive-input fieldId="companyActions" label="Реакция на инцидент" class="col-4" [control]="ticketFg.controls.companyActions"></app-reactive-input>
+  </form>
 </nz-modal>

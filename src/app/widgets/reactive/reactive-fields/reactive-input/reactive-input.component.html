@@ -1,0 +1,37 @@
+<div *ngIf="control"
+     class="form-group position-relative"
+     [class.mb-0]="noMarginBottom"
+     [class.d-flex]="isInlineMode">
+  <app-reactive-label *ngIf="label"
+                      [label]="label"
+                      [fieldId]="fieldId"
+                      [tooltip]="tooltip"
+                      [hasRequiredIndicator]="hasRequiredIndicator">
+  </app-reactive-label>
+  <nz-form-item class="w-100">
+    <nz-form-control [nzValidateStatus]="!noValidationMark && validationErrors ? 'error' : null">
+      <nz-input-group [nzPrefix]="prefixTmp" [nzSuffix]="(control.enabled && !noClear) ? clearSuffixIconTmp : null">
+        <input nz-input
+               [id]="fieldId"
+               [formControl]="control"
+               [type]="inputType"
+               [placeholder]="placeholder || 'Введите'"
+               [maxLength]="maxLength || 500000"/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <app-validation-message *ngIf="!noValidationMark && !noValidationMessage"
+                          [validationErrors]="validationErrors">
+  </app-validation-message>
+  <app-reactive-sub-label [subLabel]="subLabel"></app-reactive-sub-label>
+</div>
+
+<ng-template #clearSuffixIconTmp>
+  <i *ngIf="control.value"
+     nz-icon
+     nzType="close-circle"
+     nzTheme="fill"
+     class="ant-input-clear-icon cursor-pointer"
+     (click)="control.patchValue(null); valueChange.emit(control.value)">
+  </i>
+</ng-template>

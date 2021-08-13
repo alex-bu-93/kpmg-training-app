@@ -1,9 +1,13 @@
 import { Component }                          from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router }             from '@angular/router';
+import { markTouchedAndScroll }               from '@widgets/reactive/reactive-funcs';
 import { NzNotificationService }              from 'ng-zorro-antd/notification';
 import { catchError, finalize, tap }          from 'rxjs/operators';
 import { Observable, throwError }             from 'rxjs';
+import isEmpty                                from 'lodash/isEmpty';
+import identity                               from 'lodash/identity';
+import pickBy                                 from 'lodash/pickBy';
 import { Ticket, TicketsService }             from './tickets.service';
 
 @Component({
@@ -21,47 +25,38 @@ export class TicketsComponent {
   ticketFg = new FormGroup({
     id: new FormControl(),
     category: new FormControl(null, Validators.required),
-    date: new FormControl(),
-    time: new FormControl(),
+    date: new FormControl(null, Validators.required),
+    time: new FormControl(null, Validators.required),
     link: new FormControl(null, Validators.required),
-    violation: new FormControl(),
-    informer: new FormControl(),
-    informerPosition: new FormControl(),
-    informerContacts: new FormControl(),
-    shortDescription: new FormControl(),
-    fullDescription: new FormControl(),
-    involvedDepartment: new FormControl(),
-    involvedPersons: new FormControl(),
-    informedPersons: new FormControl(),
-    awarePersons: new FormControl(),
-    evidences: new FormControl(),
-    additionalInformation: new FormControl(),
-    uniqueNumber: new FormControl(),
-    ticketDateSent: new FormControl(),
-    companyActions: new FormControl()
+    violation: new FormControl(null, Validators.required),
+    informer: new FormControl(null, Validators.required),
+    informerPosition: new FormControl(null, Validators.required),
+    informerContacts: new FormControl(null, Validators.required),
+    shortDescription: new FormControl(null, Validators.required),
+    fullDescription: new FormControl(null, Validators.required),
+    involvedDepartment: new FormControl(null, Validators.required),
+    involvedPersons: new FormControl(null, Validators.required),
+    informedPersons: new FormControl(null, Validators.required),
+    evidences: new FormControl(null, Validators.required),
+    additionalInformation: new FormControl(null, Validators.required),
+    uniqueNumber: new FormControl(null, Validators.required),
+    ticketDateSent: new FormControl(null, Validators.required),
+    companyActions: new FormControl(null, Validators.required)
   });
 
-  valueChanges$: Observable<any>;
+  valueChanges$ = this.ticketFg.valueChanges.pipe(
+    tap(value => this.router.navigate([], {relativeTo: this.route, queryParams: pickBy(value, identity)}))
+  );
 
   constructor(
-    private ticketsService: TicketsService,
-    private notification: NzNotificationService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ticketsService: TicketsService,
+    private notification: NzNotificationService
   ) {
-
-    // this.ticketFg.controls.link.valueChanges(link =>
-    //   this.ticketFg.patchValue({category: 'test'})
-    //   this.ticketFg.controls.category.patchValue('test')
-    // )
-
-    this.ticketFg.patchValue(this.route.snapshot.queryParams);
-    this.valueChanges$ = this.ticketFg.valueChanges.pipe(
-      tap(value => this.router.navigate([], {relativeTo: this.route, queryParams: value}))
-    );
-    if (Object.keys(this.route.snapshot.queryParams).length > 0) {
-      this.isModalVisible = true;
-    }
+    const {queryParams} = this.route.snapshot;
+    this.ticketFg.patchValue(queryParams);
+    if (!isEmpty(queryParams)) this.isModalVisible = true;
   }
 
   getTickets(): Observable<Ticket[]> {
@@ -83,13 +78,12 @@ export class TicketsComponent {
   onSubmitTicket(): void {
     if (this.ticketFg.valid) {
       console.log('Valid value', this.ticketFg.value);
-    } else {
-      this.ticketFg.markAllAsTouched();
-    }
+    } else markTouchedAndScroll(this.ticketFg);
   }
 
   closeModal(): void {
     this.isModalVisible = false;
-    this.router.navigate([], {relativeTo: this.route, queryParams: {}});
+    this.ticketFg.reset();
+    this.router.navigate([], {relativeTo: this.route, queryParams: null});
   }
 }

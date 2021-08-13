@@ -7,7 +7,6 @@ const routes: Routes = [
   {path: 'hcms', loadChildren: () => import('./views/hcms/hcms.module').then(m => m.HcmsModule)},
   {path: 'trainings', loadChildren: () => import('./views/trainings/trainings.module').then(m => m.TrainingsModule)},
   {path: '**', component: NopComponent}
-  // {path: '**', redirectTo: 'training-two', pathMatch: 'full'}
 ];
 
 @NgModule({

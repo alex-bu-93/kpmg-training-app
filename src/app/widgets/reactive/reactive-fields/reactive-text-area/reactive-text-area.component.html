@@ -1,0 +1,25 @@
+<div  *ngIf="control"
+      class="form-group position-relative"
+      [class.mb-0]="noMarginBottom"
+      [class.d-flex]="isInlineMode">
+  <app-reactive-label *ngIf="label"
+                      [label]="label"
+                      [fieldId]="fieldId"
+                      [tooltip]="tooltip"
+                      [hasRequiredIndicator]="hasRequiredIndicator">
+  </app-reactive-label>
+  <nz-form-item>
+    <nz-form-control [nzValidateStatus]="!noValidationMark && validationErrors ? 'error' : null">
+      <textarea nz-input
+                [formControl]="control"
+                [id]="fieldId"
+                [nzAutosize]="{ minRows: minRows || 4, maxRows: maxRows || 15 }"
+                [placeholder]="placeholder || 'Введите'"
+                (ngModelChange)="valueChange.emit($event)">
+      </textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <app-validation-message *ngIf="!noValidationMark && !noValidationMessage"
+                          [validationErrors]="validationErrors">
+  </app-validation-message>
+</div>
