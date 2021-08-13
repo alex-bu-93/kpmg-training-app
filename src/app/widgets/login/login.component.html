@@ -1,0 +1,44 @@
+<button nz-button
+        nzType="primary"
+        class="ml-auto"
+        (click)="isModalVisible = true">Авторизация
+</button>
+
+<nz-modal nzTitle="Добро пожаловать в HCMS!"
+          [nzFooter]="null"
+          [nzWidth]="700"
+          [(nzVisible)]="isModalVisible"
+          (nzOnCancel)="closeModal()">
+  <ng-template nzModalContent>
+    <p class="text-center text-muted">Форма авторизации в разработке, но пока вы можете потренироваться в заполнении пароля :)</p>
+    <div class="d-flex justify-content-between">
+      <div>
+        <ng-container [ngTemplateOutlet]="loginFormTmp" [ngTemplateOutletContext]="{ fg: fg1, index: 1 }"></ng-container>
+      </div>
+      <div>
+        <ng-container [ngTemplateOutlet]="loginFormTmp" [ngTemplateOutletContext]="{ fg: fg2, index: 2 }"></ng-container>
+      </div>
+    </div>
+  </ng-template>
+</nz-modal>
+
+<ng-template #loginFormTmp let-fg="fg" let-index="index">
+  <form nz-form style="width: 300px;" [formGroup]="fg">
+    <app-reactive-input placeholder="Введите пароль"
+                        inputType="password"
+                        [fieldId]="'password' + index"
+                        [control]="fg.controls['password' + index]">
+    </app-reactive-input>
+    <app-reactive-input placeholder="Повторите пароль"
+                        inputType="password"
+                        [fieldId]="'confirm' + index"
+                        [control]="fg.controls['confirm' + index]">
+    </app-reactive-input>
+    <button nz-button class="mt-4" [nzType]="'primary'" (click)="submitForm(fg)">
+      Вперёд!
+    </button>
+    <app-validation-message [errors]="fg.errors"
+                            [condition]="fg.errors && (fg.touched || fg.dirty)">
+    </app-validation-message>
+  </form>
+</ng-template>
