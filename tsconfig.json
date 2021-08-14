@@ -17,7 +17,8 @@
       "dom"
     ],
     "paths": {
-      "@widgets/*": ["src/app/widgets/*"]
+      "@widgets/*": ["src/app/widgets/*"],
+      "@services/*": ["src/app/services/*"]
     }
   },
   "angularCompilerOptions": {

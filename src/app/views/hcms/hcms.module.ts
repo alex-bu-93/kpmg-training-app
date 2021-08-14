@@ -4,6 +4,8 @@ import { ReactiveFormsModule }      from '@angular/forms';
 import { LoginModule }              from '@widgets/login/login.module';
 import { ReactiveInputModule }      from '@widgets/reactive/reactive-fields/reactive-input';
 import { ReactiveDatePickerModule } from '@widgets/reactive/reactive-fields/reactive-date-picker';
+import { ReactiveTextAreaModule }   from '@widgets/reactive/reactive-fields/reactive-text-area';
+import { ReactiveSelectModule }     from '@widgets/reactive/reactive-fields/reactive-select';
 import { NzLayoutModule }           from 'ng-zorro-antd/layout';
 import { NzTabsModule }             from 'ng-zorro-antd/tabs';
 import { NzButtonModule }           from 'ng-zorro-antd/button';
@@ -21,7 +23,9 @@ import { HcmsLayoutComponent }      from './hcms-layout/hcms-layout.component';
 
 const REACTIVE_FIELDS_MODULES = [
   ReactiveInputModule,
-  ReactiveDatePickerModule
+  ReactiveDatePickerModule,
+  ReactiveTextAreaModule,
+  ReactiveSelectModule
 ];
 const ANT_DESIGN_MODULES = [
   NzLayoutModule,

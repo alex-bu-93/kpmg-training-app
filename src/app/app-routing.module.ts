@@ -4,10 +4,12 @@ import { NopComponent }                            from './views/nop/nop.compone
 
 const routes: Routes = [
   {path: '', redirectTo: 'hcms', pathMatch: 'full'},
+  {path: 'welcome', loadChildren: () => import('./views/welcome/welcome.module').then(m => m.WelcomeModule)},
   {path: 'hcms', loadChildren: () => import('./views/hcms/hcms.module').then(m => m.HcmsModule)},
   {path: 'trainings', loadChildren: () => import('./views/trainings/trainings.module').then(m => m.TrainingsModule)},
   {path: '**', component: NopComponent}
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],

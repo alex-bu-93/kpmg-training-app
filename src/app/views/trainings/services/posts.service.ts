@@ -17,15 +17,15 @@ export class PostsService {
   }
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>('http://localhost:3000/posts');
+    return this.http.get<Post[]>('posts');
   }
 
   getPost(id: number): Observable<Post> {
-    return this.http.get<Post>(`http://localhost:3000/posts/${id}`);
+    return this.http.get<Post>(`posts/${id}`);
   }
 
   postPost(post: Post): Observable<any> {
-    return this.http.post<any>(`http://localhost:3000/posts`, post);
+    return this.http.post<any>(`posts`, post);
   }
 
   // putPost() {

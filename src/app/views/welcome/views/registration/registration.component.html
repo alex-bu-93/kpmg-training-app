@@ -1,0 +1,20 @@
+<ng-container *ngIf="postUser$ | async"></ng-container>
+
+<div class="d-flex justify-content-center w-100">
+  <nz-card style="width: 400px" class="mt-3">
+    <h4 class="text-center">Зарегистрируйтесь!</h4>
+    <app-reactive-input fieldId="logon"
+                        label="Имя пользователя"
+                        [control]="fg.controls.logon">
+    </app-reactive-input>
+    <app-reactive-input fieldId="password"
+                        label="Пароль"
+                        inputType="password"
+                        [control]="fg.controls.password">
+    </app-reactive-input>
+    <button nz-button nzBlock
+            [nzLoading]="isPostUserLoading"
+            (click)="onRegistration()">Зарегистрировать
+    </button>
+  </nz-card>
+</div>
