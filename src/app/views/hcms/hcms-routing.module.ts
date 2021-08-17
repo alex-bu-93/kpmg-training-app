@@ -6,6 +6,7 @@ import { TimesheetComponent }   from './views/timesheet';
 import { AnalysisComponent }    from './views/analysis';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'tickets', pathMatch: 'full'},
   {
     path: '', component: HcmsLayoutComponent, children: [
       {path: 'tickets', component: TicketsComponent},

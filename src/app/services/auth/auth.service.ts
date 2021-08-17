@@ -1,7 +1,8 @@
-import { Injectable }                 from '@angular/core';
-import { HttpClient }                 from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { switchMap, tap }             from 'rxjs/operators';
+import { Injectable }                      from '@angular/core';
+import { HttpClient }                      from '@angular/common/http';
+import { Observable, of, throwError }      from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import includes                            from 'lodash/includes';
 
 interface User {
   login: string;
@@ -18,7 +19,7 @@ export class AuthService {
   get token(): string { return localStorage.getItem('token'); }
   set token(token: string) { localStorage.setItem('token', token); }
 
-  get isAuthorized(): boolean { return !!this.token; }
+  get isLoggedIn(): boolean { return !!this.token; }
 
   constructor(
     private http: HttpClient
@@ -33,6 +34,13 @@ export class AuthService {
     return this.http.get<User[]>('users').pipe(
       switchMap(users => isInDb(users, loginUser) ? of('token') : throwError({message: 'Нет пользователя'})),
       tap(token => this.token = token)
+    );
+  }
+
+  isValidToken(token: string): Observable<boolean> {
+    return this.http.get('validTokens').pipe(
+      map(validTokens => includes(validTokens, token)),
+      catchError(() => of(false))
     );
   }
 }
