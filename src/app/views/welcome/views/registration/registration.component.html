@@ -3,18 +3,26 @@
 <div class="d-flex justify-content-center w-100">
   <nz-card style="width: 400px" class="mt-3">
     <h4 class="text-center">Зарегистрируйтесь!</h4>
-    <app-reactive-input fieldId="logon"
+    <app-reactive-input fieldId="login"
                         label="Имя пользователя"
-                        [control]="fg.controls.logon">
+                        [control]="fg.controls.login">
     </app-reactive-input>
     <app-reactive-input fieldId="password"
                         label="Пароль"
                         inputType="password"
                         [control]="fg.controls.password">
     </app-reactive-input>
+    <app-reactive-input fieldId="confirm"
+                        label="Повтор пароля"
+                        inputType="password"
+                        [control]="fg.controls.confirm">
+    </app-reactive-input>
     <button nz-button nzBlock
             [nzLoading]="isPostUserLoading"
             (click)="onRegistration()">Зарегистрировать
     </button>
+    <app-validation-message [errors]="fg.errors"
+                            [condition]="fg.errors && (fg.touched || fg.dirty)">
+    </app-validation-message>
   </nz-card>
 </div>

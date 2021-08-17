@@ -4,12 +4,12 @@ import { Observable, of, throwError } from 'rxjs';
 import { switchMap, tap }             from 'rxjs/operators';
 
 interface User {
-  logon: string;
+  login: string;
   password: string;
 }
 
 function isInDb(users: User[], curUser: User): boolean {
-  return !!users.find(user => (user.logon === curUser.logon) && (user.password === curUser.password));
+  return !!users.find(user => (user.login === curUser.login) && (user.password === curUser.password));
 }
 
 @Injectable({providedIn: 'root'})
@@ -29,9 +29,9 @@ export class AuthService {
     return this.http.post('users', user);
   }
 
-  logon(logonUser: User): Observable<any> {
+  login(loginUser: User): Observable<any> {
     return this.http.get<User[]>('users').pipe(
-      switchMap(users => isInDb(users, logonUser) ? of('token') : throwError({message: 'Нет пользователя'})),
+      switchMap(users => isInDb(users, loginUser) ? of('token') : throwError({message: 'Нет пользователя'})),
       tap(token => this.token = token)
     );
   }
