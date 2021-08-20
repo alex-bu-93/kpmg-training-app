@@ -6,7 +6,7 @@ import { Observable }                                           from 'rxjs';
 export class DomainInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const url = `http://localhost:3000/${request.url}`;
+    const url = `https://kpmg-training-app-api.herokuapp.com/${request.url}`;
     request = request.clone({url});
     return next.handle(request);
   }
