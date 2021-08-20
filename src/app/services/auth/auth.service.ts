@@ -9,7 +9,7 @@ interface User {
   password: string;
 }
 
-function isInDb(users: User[], curUser: User): boolean {
+function isUserInDb(users: User[], curUser: User): boolean {
   return !!users.find(user => (user.login === curUser.login) && (user.password === curUser.password));
 }
 
@@ -18,8 +18,6 @@ export class AuthService {
 
   get token(): string { return localStorage.getItem('token'); }
   set token(token: string) { localStorage.setItem('token', token); }
-
-  get isLoggedIn(): boolean { return !!this.token; }
 
   constructor(
     private http: HttpClient
@@ -32,7 +30,7 @@ export class AuthService {
 
   login(loginUser: User): Observable<any> {
     return this.http.get<User[]>('users').pipe(
-      switchMap(users => isInDb(users, loginUser) ? of('token') : throwError({message: 'Нет пользователя'})),
+      switchMap(users => isUserInDb(users, loginUser) ? of('token') : throwError({message: 'Нет пользователя'})),
       tap(token => this.token = token)
     );
   }

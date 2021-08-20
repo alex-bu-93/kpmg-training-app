@@ -1,7 +1,4 @@
-<div  *ngIf="control"
-      class="form-group position-relative"
-      [class.mb-0]="noMarginBottom"
-      [class.d-flex]="isInlineMode">
+<div  *ngIf="control" class="position-relative mb-3" [class.mb-0]="noMarginBottom">
   <app-reactive-label *ngIf="label"
                       [label]="label"
                       [fieldId]="fieldId"

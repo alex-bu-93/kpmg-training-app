@@ -43,8 +43,8 @@ export class RegistrationComponent {
 
   // 2. Ошибка выбрасывается в формГруппу
   checkPasswordConfirm2(fg: FormGroup): ValidationErrors | null {
-    const passwordValue = fg.value['password'];
-    const confirmValue = fg.value['confirm'];
+    const passwordValue = fg.value.password;
+    const confirmValue = fg.value.confirm;
     return confirmValue ? (passwordValue === confirmValue ? null : {notConfirm: true}) : null;
   }
 

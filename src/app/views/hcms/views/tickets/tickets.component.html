@@ -69,10 +69,7 @@
                          label="Категория"
                          class="col-4"
                          [control]="ticketFg.controls.category"
-                         [options]="[
-                                     {label: 'Первый тип', value: 'typeOne'},
-                                     {label: 'Второй тип', value: 'typeTwo'}
-                                    ]">
+                         [options]="categoryOptions">
     </app-reactive-select>
     <app-reactive-date-picker fieldId="date" label="Дата" class="col-4" [control]="ticketFg.controls.date"></app-reactive-date-picker>
     <app-reactive-input fieldId="time" label="Время" class="col-4" [control]="ticketFg.controls.time"></app-reactive-input>

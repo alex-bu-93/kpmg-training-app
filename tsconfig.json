@@ -17,6 +17,7 @@
       "dom"
     ],
     "paths": {
+      "@functions/*": ["src/app/functions/*"],
       "@widgets/*": ["src/app/widgets/*"],
       "@services/*": ["src/app/services/*"]
     }

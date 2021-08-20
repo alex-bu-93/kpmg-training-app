@@ -32,7 +32,6 @@ export class LoginComponent {
     if (this.fg.valid) {
       this.isLoginLoading = true;
       this.login$ = this.authService.login(this.fg.value).pipe(
-        tap(res => console.log(res)),
         tap(() => this.router.navigate(['/hcms'])),
         finalize(() => this.isLoginLoading = false)
       );

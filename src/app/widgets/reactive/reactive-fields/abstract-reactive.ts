@@ -20,14 +20,6 @@ export abstract class AbstractReactive implements AfterContentInit, DoCheck {
   @Input() set noMarginBottom(prop: boolean) { this._noMarginBottom = typeof prop === 'boolean' ? prop : true; }
   get noMarginBottom(): boolean { return this._noMarginBottom; }
 
-  private _isInlineMode = false;
-  @Input() set isInlineMode(prop: boolean) { this._isInlineMode = typeof prop === 'boolean' ? prop : true; }
-  get isInlineMode(): boolean { return this._isInlineMode; }
-
-  private _noClear = false;
-  @Input() set noClear(prop: boolean) { this._noClear = typeof prop === 'boolean' ? prop : true; }
-  get noClear(): boolean { return this._noClear; }
-
   private _noValidationMark = false;
   @Input() set noValidationMark(prop: boolean) { this._noValidationMark = typeof prop === 'boolean' ? prop : true; }
   get noValidationMark(): boolean { return this._noValidationMark; }
