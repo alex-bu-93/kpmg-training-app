@@ -5,6 +5,7 @@ import localeRu                                from '@angular/common/locales/ru'
 import { registerLocaleData }                  from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ru_RU, NZ_I18N }                      from 'ng-zorro-antd/i18n';
+import { NzNotificationModule }                from 'ng-zorro-antd/notification';
 import { TokenInterceptor }                    from './interceptors/token.interceptor';
 import { DomainInterceptor }                   from './interceptors/domain.interceptor';
 import { NopComponent }                        from './views/nop/nop.component';
@@ -13,12 +14,17 @@ import { AppRoutingModule }                    from './app-routing.module';
 
 registerLocaleData(localeRu);
 
+const ANT_DESIGN_MODULES = [
+  NzNotificationModule
+];
+
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ANT_DESIGN_MODULES
   ],
   providers: [
     {provide: NZ_I18N, useValue: ru_RU},

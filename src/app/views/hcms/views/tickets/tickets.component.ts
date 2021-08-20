@@ -3,14 +3,13 @@ import { FormControl, FormGroup, Validators }                        from '@angu
 import { ActivatedRoute, Router }                                    from '@angular/router';
 import { markTouchedAndScroll }                                      from '@widgets/reactive/reactive-funcs';
 import { randomDate, randomIntNumber }                               from '@functions/random';
-import { CATEGORY_OPTIONS, INFORMER_POSITION_OPTIONS, LINK_OPTIONS } from '@functions/dictionaries';
-import { NzNotificationService }                                     from 'ng-zorro-antd/notification';
-import { catchError, finalize, tap }                                 from 'rxjs/operators';
-import { Observable, throwError }                                    from 'rxjs';
+import { finalize, tap }                                             from 'rxjs/operators';
+import { Observable }                                                from 'rxjs';
 import isEmpty                                                       from 'lodash/isEmpty';
 import identity                                                      from 'lodash/identity';
 import pickBy                                                        from 'lodash/pickBy';
 import { Ticket, TicketsService }                                    from './tickets.service';
+import { CATEGORY_OPTIONS, INFORMER_POSITION_OPTIONS, LINK_OPTIONS } from '../../functions/dictionaries';
 
 @Component({
   selector: 'app-tickets',
@@ -20,9 +19,12 @@ export class TicketsComponent {
 
   isModalVisible: boolean;
   isTicketsLoading: boolean;
+  isSubmitTicketLoading: boolean;
 
   tickets: Ticket[];
   tickets$ = this.getTickets();
+  submitTicket$: Observable<any>;
+  deleteTicket$: Observable<any>;
 
   categoryOptions = CATEGORY_OPTIONS;
   linkOptions = LINK_OPTIONS;
@@ -64,8 +66,7 @@ export class TicketsComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ticketsService: TicketsService,
-    private notification: NzNotificationService
+    private ticketsService: TicketsService
   ) {
     const {queryParams} = this.route.snapshot;
     if (!isEmpty(queryParams)) {
@@ -78,22 +79,32 @@ export class TicketsComponent {
     this.isTicketsLoading = true;
     return this.ticketsService.getTickets().pipe(
       tap(tickets => this.tickets = tickets),
-      finalize(() => this.isTicketsLoading = false),
-      catchError(err => {
-        this.notification.create(
-          'error',
-          'Возникла проблема',
-          'Не удалось получить данные'
-        );
-        return throwError(err);
-      })
+      finalize(() => this.isTicketsLoading = false)
     );
   }
 
-  onSubmitTicket(): void {
+  submitTicket(): void {
     if (this.ticketFg.valid) {
-      console.log('Valid value', this.ticketFg.value);
+      this.isSubmitTicketLoading = true;
+      this.submitTicket$ = this.ticketsService.submitTicket(this.ticketFg.value).pipe(
+        tap(() => this.tickets$ = this.getTickets()),
+        tap(() => this.closeModal()),
+        finalize(() => this.isSubmitTicketLoading = false)
+      );
     } else markTouchedAndScroll(this.ticketFg);
+  }
+
+  deleteTicket(ticket: Ticket): void {
+    ticket['isDeleteLoading'] = true;
+    this.deleteTicket$ = this.ticketsService.deleteTicket(ticket).pipe(
+      tap(() => this.tickets$ = this.getTickets()),
+      finalize(() => ticket['isDeleteLoading'] = false)
+    );
+  }
+
+  openModal(ticket?: Ticket): void {
+    this.isModalVisible = true;
+    if (ticket) this.ticketFg.patchValue(ticket);
   }
 
   closeModal(): void {
@@ -121,7 +132,7 @@ function randomTicket(): any {
     informedPersons: randomIntNumber() + ' informedPersons ' + randomIntNumber(),
     evidences: randomIntNumber() + ' evidences ' + randomIntNumber(),
     additionalInformation: randomIntNumber() + ' additionalInformation ' + randomIntNumber(),
-    uniqueNumber: randomIntNumber() + ' uniqueNumber ' + randomIntNumber(),
+    uniqueNumber: randomIntNumber(),
     ticketDateSent: randomDate(),
     companyActions: randomIntNumber() + ' companyActions ' + randomIntNumber()
   };

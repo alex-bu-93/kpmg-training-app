@@ -1,17 +1,20 @@
 <ng-container *ngIf="tickets$ | async"></ng-container>
 <ng-container *ngIf="valueChanges$ | async"></ng-container>
+<ng-container *ngIf="submitTicket$ | async"></ng-container>
+<ng-container *ngIf="deleteTicket$ | async"></ng-container>
 
 <ng-container *ngIf="isTicketsLoading"><i nz-icon nzType="loading"></i> Loading ...</ng-container>
 <ng-container *ngIf="!isTicketsLoading">
   <div class="mb-2">
     <button nz-button
             class="btn-outline-primary"
-            (click)="isModalVisible = true">Новое обращение
+            (click)="openModal()">Новое обращение
     </button>
   </div>
   <nz-table #basicTable
             nzBordered nzSize="small"
             nzNoResult="Нет данных для отображения"
+            nzHideOnSinglePage
             [nzData]="tickets">
     <thead>
     <tr>
@@ -35,9 +38,24 @@
     </thead>
     <tbody>
     <tr *ngFor="let ticket of basicTable.data" class="align-baseline">
-      <td class="text-nowrap">{{ ticket.id }} / {{ticket.uniqueNumber}}</td>
-      <td>{{ ticket.category }}</td>
-      <td>{{ ticket.date }} ({{ ticket.time }})</td>
+      <td class="text-nowrap">
+        {{ ticket.id }} / {{ticket.uniqueNumber}}
+        <i nz-icon nzType="edit"
+           style="cursor: pointer"
+           class="text-warning"
+           (click)="openModal(ticket)">
+        </i>
+        <i nz-icon
+           nz-popconfirm
+           nzPopconfirmTitle="Вы точно хотите удалить это обращение?"
+           class="text-danger"
+           [ngClass]="ticket['isDeleteLoading'] ? 'cursor-not-allowed' : 'cursor-pointer'"
+           [nzType]="ticket['isDeleteLoading'] ? 'loading' : 'delete'"
+           (nzOnConfirm)="!ticket['isDeleteLoading'] && deleteTicket(ticket)">
+        </i>
+      </td>
+      <td>{{ticket.category}}</td>
+      <td>{{ticket.date}} ({{ ticket.time }})</td>
       <td>{{ticket.link}}</td>
       <td>{{ticket.violation}}</td>
       <td>{{ticket.informer}}, {{ticket.informerPosition}}</td>
@@ -57,14 +75,15 @@
 </ng-container>
 
 
-<nz-modal nzTitle="Новое обращение"
-          nzOkText="Добавить"
+<nz-modal nzOkText="Добавить"
+          [nzTitle]="ticketFg.value['id'] ? ('Редактирование обращения: ' + ticketFg.value['uniqueNumber']) : 'Новое обращение'"
           [nzStyle]="{top: '20px'}"
           [nzWidth]="1200"
+          [nzOkLoading]="isSubmitTicketLoading"
           [(nzVisible)]="isModalVisible"
           (nzOnCancel)="closeModal()"
-          (nzOnOk)="onSubmitTicket()">
-  <form *nzModalContent [formGroup]="ticketFg" class="row" (ngSubmit)="onSubmitTicket()">
+          (nzOnOk)="submitTicket()">
+  <form *nzModalContent [formGroup]="ticketFg" class="row" (ngSubmit)="submitTicket()">
     <app-reactive-select fieldId="category"
                          label="Категория"
                          class="col-4"
