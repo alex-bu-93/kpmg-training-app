@@ -1,0 +1,25 @@
+<div *ngIf="control" class="position-relative mb-3" [class.mb-0]="noMarginBottom">
+  <app-reactive-label *ngIf="label"
+                      [label]="label"
+                      [fieldId]="fieldId"
+                      [tooltip]="tooltip"
+                      [hasRequiredIndicator]="hasRequiredIndicator">
+  </app-reactive-label>
+  <nz-form-item class="w-100">
+    <nz-form-control [nzValidateStatus]="!noValidationMark && validationErrors ? 'error' : null">
+      <nz-input-group>
+        <input #input
+               nz-input
+               numbersOnly
+               [id]="fieldId"
+               [placeholder]="placeholder || 'Введите'"
+               [maxLength]="18"
+               [ngModel]="value | phone"
+               (ngModelChange)="modelChange($event)"/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <app-validation-message *ngIf="!noValidationMark && !noValidationMessage"
+                          [validationErrors]="validationErrors">
+  </app-validation-message>
+</div>

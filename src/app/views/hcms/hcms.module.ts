@@ -5,6 +5,7 @@ import { ReactiveInputModule }      from '@widgets/reactive/reactive-fields/reac
 import { ReactiveDatePickerModule } from '@widgets/reactive/reactive-fields/reactive-date-picker';
 import { ReactiveTextAreaModule }   from '@widgets/reactive/reactive-fields/reactive-text-area';
 import { ReactiveSelectModule }     from '@widgets/reactive/reactive-fields/reactive-select';
+import { ReactiveTimePickerModule } from '@widgets/reactive/reactive-fields/reactive-time-picker';
 import { NzLayoutModule }           from 'ng-zorro-antd/layout';
 import { NzTabsModule }             from 'ng-zorro-antd/tabs';
 import { NzButtonModule }           from 'ng-zorro-antd/button';
@@ -19,12 +20,15 @@ import { TimesheetComponent }       from './views/timesheet';
 import { AnalysisComponent }        from './views/analysis';
 import { HcmsLayoutComponent }      from './hcms-layout';
 import { HcmsRoutingModule }        from './hcms-routing.module';
+import { ReactiveInputPhoneModule } from '@widgets/reactive/reactive-fields/reactive-input-phone';
 
 const REACTIVE_FIELDS_MODULES = [
   ReactiveInputModule,
   ReactiveDatePickerModule,
   ReactiveTextAreaModule,
-  ReactiveSelectModule
+  ReactiveSelectModule,
+  ReactiveTimePickerModule,
+  ReactiveInputPhoneModule
 ];
 const ANT_DESIGN_MODULES = [
   NzLayoutModule,
