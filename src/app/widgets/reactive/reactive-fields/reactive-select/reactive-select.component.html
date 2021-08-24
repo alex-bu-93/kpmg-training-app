@@ -12,9 +12,9 @@
       <nz-select nzShowSearch
                  nzNotFoundContent="Нет данных"
                  class="w-100"
-                 [nzLoading]="isLoading"
-                 [id]="fieldId"
+                 [nzId]="fieldId"
                  [formControl]="control"
+                 [nzLoading]="isLoading"
                  [nzPlaceHolder]="placeholder || 'Выберите'">
         <nz-option *ngFor="let item of options"
                    [nzLabel]="item.label"

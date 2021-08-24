@@ -11,9 +11,8 @@ export class ReactiveMultipleSelectComponent extends AbstractReactive {
   @Input() options: NzSelectOptionInterface[];
 
   onModelChange(e): void {
-    if (e?.length === 0) {
-      this.control.patchValue(null);
-      this.valueChange.emit(this.control.value);
-    }
+    if (e?.length) return;
+    this.control.patchValue(null);
+    this.valueChange.emit(this.control.value);
   }
 }

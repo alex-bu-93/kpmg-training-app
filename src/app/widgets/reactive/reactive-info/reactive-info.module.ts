@@ -3,7 +3,6 @@ import { CommonModule }                                                      fro
 import { NzIconModule }                                                      from 'ng-zorro-antd/icon';
 import { NzToolTipModule }                                                   from 'ng-zorro-antd/tooltip';
 import { ReactiveLabelComponent }                                            from './reactive-label';
-import { ReactiveSubLabelComponent }                                         from './reactive-sub-label';
 import { ReactiveValidationMessageComponent, ReactiveValidationMessagePipe } from './reactive-validation-message';
 
 const ANT_DESIGN_MODULES = [
@@ -12,7 +11,6 @@ const ANT_DESIGN_MODULES = [
 ];
 const FIELD_INFO_COMPONENTS = [
   ReactiveLabelComponent,
-  ReactiveSubLabelComponent,
   ReactiveValidationMessageComponent
 ];
 
@@ -25,9 +23,7 @@ const FIELD_INFO_COMPONENTS = [
     ReactiveValidationMessagePipe,
     FIELD_INFO_COMPONENTS
   ],
-  exports: [
-    FIELD_INFO_COMPONENTS
-  ]
+  exports: [FIELD_INFO_COMPONENTS]
 })
 export class ReactiveInfoModule {
 }

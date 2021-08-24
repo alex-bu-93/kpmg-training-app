@@ -8,6 +8,7 @@ import { Observable }                                                from 'rxjs'
 import isEmpty                                                       from 'lodash/isEmpty';
 import identity                                                      from 'lodash/identity';
 import pickBy                                                        from 'lodash/pickBy';
+import includes                                                      from 'lodash/includes';
 import { Ticket, TicketsService }                                    from './tickets.service';
 import { CATEGORY_OPTIONS, INFORMER_POSITION_OPTIONS, LINK_OPTIONS } from '../../functions/dictionaries';
 
@@ -57,7 +58,7 @@ export class TicketsComponent {
   );
 
   @HostListener('document:keydown', ['$event']) onKeydown({key, ctrlKey}: KeyboardEvent): void {
-    if (ctrlKey && key === 'q') {
+    if (ctrlKey && includes(['q', 'й', 'Q', 'Й'], key)) {
       this.ticketFg.patchValue(randomTicket());
       if (!this.isModalVisible) this.isModalVisible = true;
     }

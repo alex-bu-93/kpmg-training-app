@@ -21,8 +21,5 @@
             [nzLoading]="isPostUserLoading"
             (click)="onRegistration()">Зарегистрировать
     </button>
-    <app-validation-message [errors]="fg.errors"
-                            [condition]="fg.errors && (fg.touched || fg.dirty)">
-    </app-validation-message>
   </nz-card>
 </div>

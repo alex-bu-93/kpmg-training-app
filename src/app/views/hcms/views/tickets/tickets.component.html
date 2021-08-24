@@ -90,21 +90,85 @@
                          [control]="ticketFg.controls.category"
                          [options]="categoryOptions">
     </app-reactive-select>
-    <app-reactive-date-picker fieldId="date" label="Дата" class="col-4" [control]="ticketFg.controls.date"></app-reactive-date-picker>
-    <app-reactive-input fieldId="time" label="Время" class="col-4" [control]="ticketFg.controls.time"></app-reactive-input>
-    <app-reactive-input fieldId="link" label="Телефон" class="col-4" [control]="ticketFg.controls.link"></app-reactive-input>
-    <app-reactive-input fieldId="violation" label="Нарушение" class="col-4" [control]="ticketFg.controls.violation"></app-reactive-input>
-    <app-reactive-input fieldId="informer" label="Информатор" class="col-4" [control]="ticketFg.controls.informer"></app-reactive-input>
-    <app-reactive-input fieldId="informerPosition" label="Должность информатора" class="col-4" [control]="ticketFg.controls.informerPosition"></app-reactive-input>
-    <app-reactive-input fieldId="informerContacts" label="Контакты информатора" class="col-4" [control]="ticketFg.controls.informerContacts"></app-reactive-input>
-    <app-reactive-text-area fieldId="shortDescription" label="Краткое описание" class="col-4" [control]="ticketFg.controls.shortDescription"></app-reactive-text-area>
-    <app-reactive-text-area fieldId="fullDescription" label="Полное описание" class="col-4" [control]="ticketFg.controls.fullDescription"></app-reactive-text-area>
-    <app-reactive-input fieldId="involvedDepartment" label="Вовлеченное подразделение" class="col-4" [control]="ticketFg.controls.involvedDepartment"></app-reactive-input>
-    <app-reactive-input fieldId="involvedPersons" label="Вовлеченные лица" class="col-4" [control]="ticketFg.controls.involvedPersons"></app-reactive-input>
-    <app-reactive-input fieldId="informedPersons" label="Информированные лица" class="col-4" [control]="ticketFg.controls.informedPersons"></app-reactive-input>
-    <app-reactive-input fieldId="evidences" label="Доказательства" class="col-4" [control]="ticketFg.controls.evidences"></app-reactive-input>
-    <app-reactive-input fieldId="additionalInformation" label="Информация" class="col-4" [control]="ticketFg.controls.additionalInformation"></app-reactive-input>
-    <app-reactive-input fieldId="ticketDateSent" label="Дата репорта" class="col-4" [control]="ticketFg.controls.ticketDateSent"></app-reactive-input>
-    <app-reactive-input fieldId="companyActions" label="Реакция на инцидент" class="col-4" [control]="ticketFg.controls.companyActions"></app-reactive-input>
+    <app-reactive-date-picker fieldId="date"
+                              label="Дата"
+                              class="col-4"
+                              [control]="ticketFg.controls.date">
+    </app-reactive-date-picker>
+    <app-reactive-time-picker fieldId="time"
+                              label="Время"
+                              class="col-4"
+                              [control]="ticketFg.controls.time">
+    </app-reactive-time-picker>
+    <app-reactive-input fieldId="link"
+                        label="Телефон"
+                        class="col-4"
+                        [control]="ticketFg.controls.link">
+    </app-reactive-input>
+    <app-reactive-input fieldId="violation"
+                        label="Нарушение"
+                        class="col-4"
+                        [control]="ticketFg.controls.violation">
+    </app-reactive-input>
+    <app-reactive-input fieldId="informer"
+                        label="Информатор"
+                        class="col-4"
+                        [control]="ticketFg.controls.informer">
+    </app-reactive-input>
+    <app-reactive-input fieldId="informerPosition"
+                        label="Должность информатора"
+                        class="col-4"
+                        [control]="ticketFg.controls.informerPosition">
+    </app-reactive-input>
+    <app-reactive-input fieldId="informerContacts"
+                        label="Контакты информатора"
+                        class="col-4"
+                        [control]="ticketFg.controls.informerContacts">
+    </app-reactive-input>
+    <app-reactive-text-area fieldId="shortDescription"
+                            label="Краткое описание"
+                            class="col-4"
+                            [control]="ticketFg.controls.shortDescription">
+    </app-reactive-text-area>
+    <app-reactive-text-area fieldId="fullDescription"
+                            label="Полное описание"
+                            class="col-4"
+                            [control]="ticketFg.controls.fullDescription">
+    </app-reactive-text-area>
+    <app-reactive-input fieldId="involvedDepartment"
+                        label="Вовлеченное подразделение"
+                        class="col-4"
+                        [control]="ticketFg.controls.involvedDepartment">
+    </app-reactive-input>
+    <app-reactive-input fieldId="involvedPersons"
+                        label="Вовлеченные лица"
+                        class="col-4"
+                        [control]="ticketFg.controls.involvedPersons">
+    </app-reactive-input>
+    <app-reactive-input fieldId="informedPersons"
+                        label="Информированные лица"
+                        class="col-4"
+                        [control]="ticketFg.controls.informedPersons">
+    </app-reactive-input>
+    <app-reactive-input fieldId="evidences"
+                        label="Доказательства"
+                        class="col-4"
+                        [control]="ticketFg.controls.evidences">
+    </app-reactive-input>
+    <app-reactive-input fieldId="additionalInformation"
+                        label="Информация"
+                        class="col-4"
+                        [control]="ticketFg.controls.additionalInformation">
+    </app-reactive-input>
+    <app-reactive-input fieldId="ticketDateSent"
+                        label="Дата репорта"
+                        class="col-4"
+                        [control]="ticketFg.controls.ticketDateSent">
+    </app-reactive-input>
+    <app-reactive-input fieldId="companyActions"
+                        label="Реакция на инцидент"
+                        class="col-4"
+                        [control]="ticketFg.controls.companyActions">
+    </app-reactive-input>
   </form>
 </nz-modal>

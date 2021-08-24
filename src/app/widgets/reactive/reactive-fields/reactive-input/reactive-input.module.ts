@@ -7,8 +7,14 @@ import { NzIconModule }           from 'ng-zorro-antd/icon';
 import { ReactiveInputComponent } from './reactive-input.component';
 import { ReactiveInfoModule }     from '../../reactive-info';
 
-const FORM_MODULES = [ReactiveFormsModule];
-const ANT_DESIGN_MODULES = [NzFormModule, NzInputModule, NzIconModule];
+const FORM_MODULES = [
+  ReactiveFormsModule
+];
+const ANT_DESIGN_MODULES = [
+  NzFormModule,
+  NzInputModule,
+  NzIconModule
+];
 
 @NgModule({
   imports: [

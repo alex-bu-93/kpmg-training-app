@@ -10,7 +10,6 @@ export abstract class AbstractReactive implements AfterContentInit, DoCheck {
   @Input() fieldId: string | null = null;
   @Input() control: AbstractControl | null = null;
   @Input() label: string | null = null;
-  @Input() subLabel: string | null = null;
   @Input() tooltip: string | TemplateRef<void>;
   @Input() prefixTmp: string | TemplateRef<void>;
   @Input() hasRequiredIndicator: boolean;

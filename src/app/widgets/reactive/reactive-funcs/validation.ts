@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 /** Method return boolean value depends on input control requirement */
 export function hasRequiredValidator(abstractControl: AbstractControl): boolean {
@@ -32,3 +32,21 @@ export function markTouchedAndScroll(formGroup: FormGroup): void {
     return true;
   });
 }
+
+export function passwordConfirmValidator(controlName: string, matchingControlName: string): ValidatorFn {
+  return (fg: FormGroup): any => {
+    const ctrlValue = fg.controls[controlName].value;
+    const matchingCtrl = fg.controls[matchingControlName];
+    matchingCtrl.setErrors(matchingCtrl.value
+      ? (ctrlValue === matchingCtrl.value ? null : {customError: 'Пароли не совпадают'})
+      : {required: true}
+    );
+  };
+}
+
+// // 2. Ошибка выбрасывается в формГруппу
+// checkPasswordConfirm2(fg: FormGroup): ValidationErrors | null {
+//   const passwordValue = fg.value.password;
+//   const confirmValue = fg.value.confirm;
+//   return confirmValue ? (passwordValue === confirmValue ? null : {notConfirm: true}) : null;
+// }

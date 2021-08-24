@@ -7,13 +7,10 @@
   </app-reactive-label>
   <nz-form-item>
     <nz-form-control [nzValidateStatus]="validationErrors ? 'error' : null">
-      <nz-date-picker nzFormat="dd.MM.yyyy"
-                      class="w-100"
+      <nz-time-picker class="w-100"
                       [nzId]="fieldId"
-                      [formControl]="control"
-                      [nzDisabledDate]="disabledDatesFn"
-                      (nzOnOpenChange)="!$event && control.markAsTouched()">
-      </nz-date-picker>
+                      [formControl]="control">
+      </nz-time-picker>
     </nz-form-control>
   </nz-form-item>
   <app-validation-message *ngIf="!noValidationMark && !noValidationMessage"

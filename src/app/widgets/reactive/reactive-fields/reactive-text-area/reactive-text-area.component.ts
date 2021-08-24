@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
-import { AbstractReactive }                   from '../abstract-reactive';
+import { Component, Input } from '@angular/core';
+import { AbstractReactive } from '../abstract-reactive';
 
 @Component({
   selector: 'app-reactive-text-area',
