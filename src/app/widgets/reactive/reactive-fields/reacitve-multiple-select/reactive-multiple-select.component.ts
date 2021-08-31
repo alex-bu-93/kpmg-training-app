@@ -12,7 +12,7 @@ export class ReactiveMultipleSelectComponent extends AbstractReactive {
 
   onModelChange(e): void {
     if (e?.length) return;
-    this.control.patchValue(null);
+    if (e !== this.control.value) this.control.patchValue(null, {emitEvent: false, onlySelf: true});
     this.valueChange.emit(this.control.value);
   }
 }

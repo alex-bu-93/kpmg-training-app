@@ -4,6 +4,7 @@ import { ValidationErrors }    from '@angular/forms';
 export const FILLING_NEEDED_MESSAGE = 'Необходимо заполнить';
 export const EMAIL_PATTERN_MESSAGE = 'Некорректный email';
 export const PASSWORD_PATTERN_MESSAGE = 'Недопустимый формат пароля';
+export const PHONE_PATTERN_MESSAGE = 'Недопустимый формат телефона';
 export const MIN_LENGTH_SYMBOLS_MESSAGE = 'Не менее ... символов';
 export const MAX_LENGTH_SYMBOLS_MESSAGE = 'Не более ... символов';
 export const MIN_VALUE_MESSAGE = 'Не менее ...';

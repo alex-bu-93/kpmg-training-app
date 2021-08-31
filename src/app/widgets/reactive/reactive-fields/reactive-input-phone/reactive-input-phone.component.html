@@ -1,19 +1,20 @@
-<div *ngIf="control" class="position-relative mb-3" [class.mb-0]="noMarginBottom">
+<div *ngIf="control" class="position-relative" [class.mb-0]="noMarginBottom" [class.mb-3]="!noMarginBottom">
   <app-reactive-label *ngIf="label"
                       [label]="label"
                       [fieldId]="fieldId"
                       [tooltip]="tooltip"
                       [hasRequiredIndicator]="hasRequiredIndicator">
   </app-reactive-label>
-  <nz-form-item class="w-100">
+  <nz-form-item class="w-100 mb-0">
     <nz-form-control [nzValidateStatus]="!noValidationMark && validationErrors ? 'error' : null">
-      <nz-input-group>
+      <nz-input-group  [nzPrefix]="prefixTmp" [nzSuffix]="control.enabled ? clearSuffixIconTmp : null">
         <input #input
                nz-input
                numbersOnly
                [id]="fieldId"
                [placeholder]="placeholder || 'Введите'"
                [maxLength]="18"
+               [disabled]="control.disabled"
                [ngModel]="value | phone"
                (ngModelChange)="modelChange($event)"/>
       </nz-input-group>
@@ -23,3 +24,15 @@
                           [validationErrors]="validationErrors">
   </app-validation-message>
 </div>
+
+
+<ng-template #clearSuffixIconTmp>
+  <i *ngIf="control.value"
+     nz-icon
+     nzType="close-circle"
+     nzTheme="fill"
+     class="ant-input-clear-icon cursor-pointer"
+     (click)="modelChange(null); valueChange.emit(control.value)">
+  </i>
+</ng-template>
+

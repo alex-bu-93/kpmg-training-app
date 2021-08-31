@@ -3,172 +3,176 @@
 <ng-container *ngIf="submitTicket$ | async"></ng-container>
 <ng-container *ngIf="deleteTicket$ | async"></ng-container>
 
-<ng-container *ngIf="isTicketsLoading"><i nz-icon nzType="loading"></i> Loading ...</ng-container>
-<ng-container *ngIf="!isTicketsLoading">
-  <div class="mb-2">
-    <button nz-button
-            class="btn-outline-primary"
-            (click)="openModal()">Новое обращение
-    </button>
-  </div>
-  <nz-table #basicTable
+<app-request-wrapper #ticketRs [request$]="tickets$">
+  <button nz-button nzType="text"
+          class="btn-outline-success mb-2"
+          (click)="openModal()">Новое обращение
+  </button>
+  <nz-table #ticketsTbl
             nzBordered nzSize="small"
             nzNoResult="Нет данных для отображения"
-            nzHideOnSinglePage
-            [nzData]="tickets">
+            nzHideOnSinglePage nzSimple
+            [nzData]="ticketRs.data">
     <thead>
     <tr>
-      <th style="width: 20px">#</th>
-      <th style="width: 50px">Категория</th>
-      <th>Дата</th>
-      <th>Телефон</th>
+      <th nzWidth="1px">#</th>
+      <th nzWidth="1px">Категория</th>
       <th>Нарушение</th>
+      <th nzWidth="1px">Дата</th>
+      <th nzWidth="1px" class="text-nowrap">Канал связи</th>
       <th>Информатор</th>
-      <th>Контакты</th>
-      <th>Описание</th>
-      <th>Полное описание</th>
-      <th>Вовлеченное подразделение</th>
-      <th>Вовлеченные лица</th>
-      <th>Информированные лица</th>
-      <th>Доказательства</th>
-      <th>Информация</th>
-      <th>Дата репорта</th>
-      <th>Реакция на инцидент</th>
+      <th nzWidth="99%">Описание</th>
+      <th nzWidth="1px" class="text-nowrap">Дата репорта</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let ticket of basicTable.data" class="align-baseline">
-      <td class="text-nowrap">
-        {{ ticket.id }} / {{ticket.uniqueNumber}}
-        <i nz-icon nzType="edit"
-           style="cursor: pointer"
-           class="text-warning"
-           (click)="openModal(ticket)">
-        </i>
-        <i nz-icon
-           nz-popconfirm
-           nzPopconfirmTitle="Вы точно хотите удалить это обращение?"
-           class="text-danger"
-           [ngClass]="ticket['isDeleteLoading'] ? 'cursor-not-allowed' : 'cursor-pointer'"
-           [nzType]="ticket['isDeleteLoading'] ? 'loading' : 'delete'"
-           (nzOnConfirm)="!ticket['isDeleteLoading'] && deleteTicket(ticket)">
-        </i>
+    <tr *ngFor="let ticket of ticketsTbl.data" class="align-baseline">
+      <td class="text-center">
+        <p class="mb-0 text-nowrap">{{ticket.id}} / {{ticket.uniqueNumber}}</p>
+        <p class="mb-0 text-nowrap">
+          <button nz-button nzSize="small"
+                  class="border-0 shadow-none bg-inherit btn-outline-primary"
+                  (click)="openModal(ticket); ticketFg.disable()">
+            <i nz-icon nzType="eye"></i>
+          </button>
+          <button nz-button nzSize="small"
+                  class="border-0 shadow-none bg-inherit btn-outline-warning"
+                  (click)="openModal(ticket)">
+            <i nz-icon nzType="edit"></i>
+          </button>
+          <button nz-button nzSize="small"
+                  nz-popconfirm nzPopconfirmTitle="Вы точно хотите удалить это обращение?"
+                  class="border-0 shadow-none bg-inherit btn-outline-danger"
+                  [nzLoading]="ticket['isDeleteLoading']"
+                  (nzOnConfirm)="!ticket['isDeleteLoading'] && deleteTicket(ticket)">
+            <i nz-icon nzType="delete"></i>
+          </button>
+        </p>
       </td>
-      <td>{{ticket.category}}</td>
-      <td>{{ticket.date | date : 'dd.MM.yyyy'}} ({{ ticket.time | date : 'HH:mm' }})</td>
-      <td>{{ticket.link}}</td>
-      <td>{{ticket.violation}}</td>
-      <td>{{ticket.informer}}, {{ticket.informerPosition}}</td>
-      <td>{{ticket.informerContacts}}</td>
-      <td>{{ticket.shortDescription}}</td>
-      <td><p nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="5">{{ticket.fullDescription}}</p></td>
-      <td>{{ticket.involvedDepartment}}</td>
-      <td>{{ticket.involvedPersons}}</td>
-      <td>{{ticket.informedPersons}}</td>
-      <td>{{ticket.evidences}}</td>
-      <td>{{ticket.additionalInformation}}</td>
-      <td>{{ticket.ticketDateSent}}</td>
-      <td>{{ticket.companyActions}}</td>
+      <td class="text-nowrap">{{dictionariesService.categoryOptionsMap[ticket.category]?.label}}</td>
+      <td>
+        <p *ngFor="let violation of ticket.violation" class="text-nowrap mb-0">
+          {{dictionariesService.violationOptionsMap[violation]?.label}}
+        </p>
+      <td>
+        <p class="mb-0">{{ticket.date | date : 'dd.MM.yyyy'}}</p>
+        <p class="mb-0">{{ticket.time | date : 'HH:mm'}}</p>
+      </td>
+      <td class="text-nowrap">{{dictionariesService.linkOptionsMap[ticket.link]?.label}}</td>
+      <td>
+        <p class="mb-0 text-nowrap">{{ticket.informerName}}</p>
+        <p class="mb-0 text-nowrap">{{dictionariesService.positionOptionsMap[ticket.informerPosition]?.label}}</p>
+      </td>
+      <td><p nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="5">{{ticket.description}}</p></td>
+      <td>
+        <p class="mb-0">{{ticket.ticketDateSent | date : 'dd.MM.yyyy'}}</p>
+        <p class="mb-0">{{ticket.ticketDateSent | date : 'HH:mm'}}</p>
+      </td>
     </tr>
     </tbody>
   </nz-table>
-</ng-container>
+</app-request-wrapper>
 
 
-<nz-modal nzOkText="Добавить"
-          [nzTitle]="ticketFg.value['id'] ? ('Редактирование обращения: ' + ticketFg.value['uniqueNumber']) : 'Новое обращение'"
+<nz-modal [nzOkText]="ticketFg.disabled ? null : ticketFg.value['id'] ? 'Редактировать' : 'Добавить'"
+          [nzTitle]="ticketFg.disabled ? 'Детали обращения: ' + ticketFg.value['id'] + '/' + ticketFg.value['uniqueNumber'] : ticketFg.value['id'] ? ('Редактирование обращения: ' + ticketFg.value['id']) : 'Новое обращение'"
           [nzStyle]="{top: '20px'}"
           [nzWidth]="1200"
+          [nzMaskClosable]="false"
           [nzOkLoading]="isSubmitTicketLoading"
           [(nzVisible)]="isModalVisible"
           (nzOnCancel)="closeModal()"
           (nzOnOk)="submitTicket()">
-  <form *nzModalContent [formGroup]="ticketFg" class="row" (ngSubmit)="submitTicket()">
-    <app-reactive-select fieldId="category"
-                         label="Категория"
-                         class="col-md-4"
-                         [control]="ticketFg.controls.category"
-                         [options]="categoryOptions">
-    </app-reactive-select>
-    <app-reactive-date-picker fieldId="date"
-                              label="Дата"
-                              class="col-md-4"
-                              [control]="ticketFg.controls.date">
-    </app-reactive-date-picker>
-    <app-reactive-time-picker fieldId="time"
-                              label="Время"
-                              class="col-md-4"
-                              [control]="ticketFg.controls.time">
-    </app-reactive-time-picker>
-    <app-reactive-input fieldId="link"
-                        label="Телефон"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.link">
-    </app-reactive-input>
-    <app-reactive-input fieldId="violation"
-                        label="Нарушение"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.violation">
-    </app-reactive-input>
-    <app-reactive-input fieldId="informer"
-                        label="Информатор"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.informer">
-    </app-reactive-input>
-    <app-reactive-input fieldId="informerPosition"
-                        label="Должность информатора"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.informerPosition">
-    </app-reactive-input>
-    <app-reactive-input-phone fieldId="informerContacts"
-                              label="Контакты информатора"
-                              class="col-md-8"
-                              [control]="ticketFg.controls.informerContacts">
-    </app-reactive-input-phone>
-    <app-reactive-text-area fieldId="shortDescription"
-                            label="Краткое описание"
-                            class="col-md-4"
-                            [control]="ticketFg.controls.shortDescription">
-    </app-reactive-text-area>
-    <app-reactive-text-area fieldId="fullDescription"
-                            label="Полное описание"
-                            class="col-md-8"
-                            [control]="ticketFg.controls.fullDescription">
-    </app-reactive-text-area>
-    <app-reactive-input fieldId="involvedDepartment"
-                        label="Вовлеченное подразделение"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.involvedDepartment">
-    </app-reactive-input>
-    <app-reactive-input fieldId="involvedPersons"
-                        label="Вовлеченные лица"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.involvedPersons">
-    </app-reactive-input>
-    <app-reactive-input fieldId="informedPersons"
-                        label="Информированные лица"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.informedPersons">
-    </app-reactive-input>
-    <app-reactive-input fieldId="evidences"
-                        label="Доказательства"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.evidences">
-    </app-reactive-input>
-    <app-reactive-input fieldId="additionalInformation"
-                        label="Информация"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.additionalInformation">
-    </app-reactive-input>
-    <app-reactive-input fieldId="ticketDateSent"
-                        label="Дата репорта"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.ticketDateSent">
-    </app-reactive-input>
-    <app-reactive-input fieldId="companyActions"
-                        label="Реакция на инцидент"
-                        class="col-md-4"
-                        [control]="ticketFg.controls.companyActions">
-    </app-reactive-input>
-  </form>
+  <ng-template nzModalContent>
+    <form *ngIf="isModalVisible"
+          autocomplete="off"
+          class="row"
+          [formGroup]="ticketFg"
+          (ngSubmit)="submitTicket()">
+      <app-reactive-select fieldId="category" label="Категория"
+                           class="col-md-3"
+                           [control]="ticketFg.controls.category"
+                           [options]="dictionariesService.categoryOptions">
+      </app-reactive-select>
+      <app-reactive-date-picker fieldId="date" label="Дата"
+                                class="col-md-3"
+                                [control]="ticketFg.controls.date">
+      </app-reactive-date-picker>
+      <app-reactive-time-picker fieldId="time" label="Время"
+                                class="col-md-3"
+                                [control]="ticketFg.controls.time">
+      </app-reactive-time-picker>
+      <app-reactive-select fieldId="link" label="Канал связи"
+                           class="col-md-3"
+                           [options]="dictionariesService.linkOptions"
+                           [control]="ticketFg.controls.link">
+      </app-reactive-select>
+      <app-reactive-multiple-select fieldId="violation" label="Нарушение"
+                                    class="col-md-12"
+                                    [options]="dictionariesService.violationOptions"
+                                    [control]="ticketFg.controls.violation">
+      </app-reactive-multiple-select>
+      <nz-divider nzText="Информатор" nzOrientation="left"></nz-divider>
+      <app-reactive-select fieldId="informerGender" label="Пол"
+                           class="col-md-3"
+                           [control]="ticketFg.controls.informerGender"
+                           [options]="[
+                                      {label: 'Мужской', value: 'Мужской'},
+                                      {label: 'Женский', value: 'Женский'}
+                                    ]">
+      </app-reactive-select>
+      <app-reactive-input fieldId="informerName" label="Имя"
+                          class="col-md-9"
+                          [control]="ticketFg.controls.informerName">
+      </app-reactive-input>
+      <app-reactive-select fieldId="informerPosition" label="Должность"
+                           class="col-md-6"
+                           [options]="dictionariesService.positionOptions"
+                           [control]="ticketFg.controls.informerPosition">
+      </app-reactive-select>
+      <app-reactive-input-phone fieldId="informerPhone" label="Телефон"
+                                class="col-md-3"
+                                [control]="ticketFg.controls.informerPhone">
+      </app-reactive-input-phone>
+      <app-reactive-input fieldId="informerEmail" label="Эл. почта"
+                          class="col-md-3"
+                          [control]="ticketFg.controls.informerEmail">
+      </app-reactive-input>
+      <nz-divider nzText="Суть обращения" nzOrientation="left"></nz-divider>
+      <app-reactive-text-area fieldId="description" label="Описание"
+                              class="col-md-9"
+                              [control]="ticketFg.controls.description">
+      </app-reactive-text-area>
+      <app-reactive-text-area fieldId="additionalInformation"
+                              label="Информация"
+                              class="col-md-3"
+                              [control]="ticketFg.controls.additionalInformation">
+      </app-reactive-text-area>
+      <app-reactive-input fieldId="involvedDepartment" label="Вовлеченное подразделение"
+                          class="col-md-4"
+                          [control]="ticketFg.controls.involvedDepartment">
+      </app-reactive-input>
+      <app-reactive-input fieldId="involvedPersons" label="Вовлеченные лица"
+                          class="col-md-4"
+                          [control]="ticketFg.controls.involvedPersons">
+      </app-reactive-input>
+      <app-reactive-input fieldId="informedPersons" label="Информированные лица"
+                          class="col-md-4"
+                          [control]="ticketFg.controls.informedPersons">
+      </app-reactive-input>
+      <nz-divider nzText="Технические данные" nzOrientation="left"></nz-divider>
+      <app-reactive-date-picker fieldId="ticketDateSent" label="Дата репорта"
+                                class="col-md-4"
+                                [control]="ticketFg.controls.ticketDateSent">
+      </app-reactive-date-picker>
+      <app-reactive-input fieldId="evidences" label="Доказательства"
+                          class="col-md-4"
+                          [control]="ticketFg.controls.evidences">
+      </app-reactive-input>
+      <app-reactive-input fieldId="companyActions" label="Реакция на инцидент"
+                          class="col-md-4"
+                          [control]="ticketFg.controls.companyActions">
+      </app-reactive-input>
+    </form>
+  </ng-template>
 </nz-modal>

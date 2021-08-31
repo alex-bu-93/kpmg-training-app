@@ -6,8 +6,4 @@ import { AbstractReactive } from '../abstract-reactive';
   templateUrl: './reactive-date-picker.component.html'
 })
 export class ReactiveDatePickerComponent extends AbstractReactive {
-
-  @Input() format = 'dd.MM.yyyy';
-  @Input() disabledDatesFn: (d: Date) => boolean;
-
 }

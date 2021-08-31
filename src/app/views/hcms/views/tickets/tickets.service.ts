@@ -12,10 +12,9 @@ export interface Ticket {
   link: any;
   violation: any;
   informer: any;
-  informerPosition: any;
+  position: any;
   informerContacts: any;
-  shortDescription: any;
-  fullDescription: any;
+  description: any;
   involvedDepartment: any;
   involvedPersons: any;
   informedPersons: any;
@@ -36,12 +35,7 @@ export class TicketsService {
   }
 
   getTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>('tickets').pipe(
-      catchError(err => {
-        this.notification.create('error', 'Ошибка', 'Не удалось получить данные');
-        return throwError(err);
-      })
-    );
+    return this.http.get<Ticket[]>('tickets');
   }
 
   submitTicket({id, ...ticketPayload}: Ticket): Observable<any> {

@@ -1,28 +1,318 @@
 {
   "users": [
     {
-      "login": "test",
-      "password": "123",
-      "id": 1
-    },
-    {
       "login": "test123",
-      "password": "test123",
-      "id": 2
-    },
-    {
-      "login": "test",
-      "password": "1234",
-      "id": 3
+      "password": "123",
+      "confirm": "123",
+      "id": 1
     }
   ],
   "validTokens": [],
-  "posts": [
+  "posts": [],
+  "tickets": [
     {
-      "id": 1,
-      "title": "json-serve qweqweqwr",
-      "author": "typicode"
+      "category": 1,
+      "date": "2014-08-04T00:37:02.184Z",
+      "time": "2020-01-07T01:34:43.012Z",
+      "link": 3,
+      "violation": [
+        1,
+        1
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 3,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "19 description 16",
+      "involvedDepartment": "26 involvedDepartment 49",
+      "involvedPersons": "72 involvedPersons 90",
+      "informedPersons": "80 informedPersons 22",
+      "evidences": "69 evidences 58",
+      "additionalInformation": "84 additionalInformation 19",
+      "uniqueNumber": 97,
+      "ticketDateSent": "2020-10-15T22:45:06.947Z",
+      "companyActions": "48 companyActions 51",
+      "id": 1
+    },
+    {
+      "category": 1,
+      "date": "2016-10-11T12:58:57.974Z",
+      "time": "2018-12-06T13:58:36.214Z",
+      "link": 1,
+      "violation": [
+        2,
+        2
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 3,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "82 description 58",
+      "involvedDepartment": "95 involvedDepartment 77",
+      "involvedPersons": "73 involvedPersons 58",
+      "informedPersons": "34 informedPersons 70",
+      "evidences": "37 evidences 57",
+      "additionalInformation": "97 additionalInformation 61",
+      "uniqueNumber": 75,
+      "ticketDateSent": "2018-06-19T01:50:30.440Z",
+      "companyActions": "37 companyActions 51",
+      "id": 2
+    },
+    {
+      "category": 3,
+      "date": "2018-01-27T04:12:24.344Z",
+      "time": "2015-11-16T03:24:03.724Z",
+      "link": 1,
+      "violation": [
+        3,
+        2,
+        2
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 3,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "63 description 80",
+      "involvedDepartment": "21 involvedDepartment 41",
+      "involvedPersons": "14 involvedPersons 83",
+      "informedPersons": "99 informedPersons 57",
+      "evidences": "70 evidences 34",
+      "additionalInformation": "84 additionalInformation 99",
+      "uniqueNumber": 57,
+      "ticketDateSent": "2013-09-10T19:28:37.050Z",
+      "companyActions": "38 companyActions 72",
+      "id": 3
+    },
+    {
+      "category": 3,
+      "date": "2012-12-07T02:38:45.845Z",
+      "time": "2018-02-04T21:29:33.547Z",
+      "link": 1,
+      "violation": [
+        1,
+        3
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 1,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "16 description 80",
+      "involvedDepartment": "25 involvedDepartment 77",
+      "involvedPersons": "85 involvedPersons 93",
+      "informedPersons": "28 informedPersons 68",
+      "evidences": "10 evidences 38",
+      "additionalInformation": "75 additionalInformation 15",
+      "uniqueNumber": 69,
+      "ticketDateSent": "2018-03-11T23:43:56.583Z",
+      "companyActions": "47 companyActions 90",
+      "id": 4
+    },
+    {
+      "category": 3,
+      "date": "2013-10-15T13:51:58.319Z",
+      "time": "2015-02-06T03:03:14.178Z",
+      "link": 2,
+      "violation": [
+        2
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 2,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "25 description 40",
+      "involvedDepartment": "91 involvedDepartment 63",
+      "involvedPersons": "72 involvedPersons 79",
+      "informedPersons": "77 informedPersons 34",
+      "evidences": "61 evidences 48",
+      "additionalInformation": "89 additionalInformation 53",
+      "uniqueNumber": 48,
+      "ticketDateSent": "2012-08-01T16:39:35.535Z",
+      "companyActions": "11 companyActions 85",
+      "id": 5
+    },
+    {
+      "category": 2,
+      "date": "2020-12-28T09:58:33.857Z",
+      "time": "2013-09-27T14:46:56.205Z",
+      "link": 2,
+      "violation": [
+        3,
+        1
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 2,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "50 description 67",
+      "involvedDepartment": "22 involvedDepartment 84",
+      "involvedPersons": "88 involvedPersons 58",
+      "informedPersons": "80 informedPersons 77",
+      "evidences": "84 evidences 78",
+      "additionalInformation": "76 additionalInformation 40",
+      "uniqueNumber": 43,
+      "ticketDateSent": "2013-02-28T01:33:28.635Z",
+      "companyActions": "42 companyActions 68",
+      "id": 6
+    },
+    {
+      "category": 3,
+      "date": "2012-10-31T04:08:09.611Z",
+      "time": "2016-05-03T06:39:15.356Z",
+      "link": 2,
+      "violation": [
+        1,
+        3
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 2,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "45 description 51",
+      "involvedDepartment": "71 involvedDepartment 25",
+      "involvedPersons": "48 involvedPersons 81",
+      "informedPersons": "35 informedPersons 30",
+      "evidences": "88 evidences 41",
+      "additionalInformation": "21 additionalInformation 19",
+      "uniqueNumber": 34,
+      "ticketDateSent": "2015-08-09T23:05:57.378Z",
+      "companyActions": "42 companyActions 86",
+      "id": 7
+    },
+    {
+      "category": 2,
+      "date": "2019-08-12T15:09:52.736Z",
+      "time": "2021-01-28T12:02:23.050Z",
+      "link": 2,
+      "violation": [
+        1,
+        1,
+        1
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 3,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "33 description 64",
+      "involvedDepartment": "47 involvedDepartment 44",
+      "involvedPersons": "35 involvedPersons 46",
+      "informedPersons": "18 informedPersons 52",
+      "evidences": "14 evidences 47",
+      "additionalInformation": "37 additionalInformation 35",
+      "uniqueNumber": 10,
+      "ticketDateSent": "2014-06-08T04:45:42.773Z",
+      "companyActions": "97 companyActions 87",
+      "id": 8
+    },
+    {
+      "category": 1,
+      "date": "2016-11-24T15:34:31.370Z",
+      "time": "2014-06-10T16:54:12.524Z",
+      "link": 1,
+      "violation": [
+        3,
+        3
+      ],
+      "informerGender": "Мужской",
+      "informerName": "Иванов Петр Петрович",
+      "informerPosition": 2,
+      "informerPhone": 79123456789,
+      "informerEmail": "ivanov@petr.pt",
+      "description": "12 description 13",
+      "involvedDepartment": "51 involvedDepartment 30",
+      "involvedPersons": "88 involvedPersons 14",
+      "informedPersons": "77 informedPersons 11",
+      "evidences": "95 evidences 21",
+      "additionalInformation": "65 additionalInformation 13",
+      "uniqueNumber": 43,
+      "ticketDateSent": "2013-12-15T03:58:28.887Z",
+      "companyActions": "58 companyActions 17",
+      "id": 9
     }
   ],
-  "tickets": []
+  "dictionaries": {
+    "categoryOptions": [
+      {
+        "value": 1,
+        "label": "Экстренная"
+      },
+      {
+        "value": 2,
+        "label": "Высокая"
+      },
+      {
+        "value": 3,
+        "label": "Средняя"
+      },
+      {
+        "value": 4,
+        "label": "Низкая"
+      }
+    ],
+    "violationOptions": [
+      {
+        "value": 1,
+        "label": "Фальсификация документов"
+      },
+      {
+        "value": 2,
+        "label": "Конфликт интересов"
+      },
+      {
+        "value": 3,
+        "label": "Воровство"
+      },
+      {
+        "value": 4,
+        "label": "Работа без контракта"
+      },
+      {
+        "value": 5,
+        "label": "Неэтичное поведение"
+      }
+    ],
+    "linkOptions": [
+      {
+        "value": 1,
+        "label": "Телефон"
+      },
+      {
+        "value": 2,
+        "label": "Почта России"
+      },
+      {
+        "value": 3,
+        "label": "Электронная почта"
+      },
+      {
+        "value": 4,
+        "label": "СМС"
+      }
+    ],
+    "positionOptions": [
+      {
+        "value": 1,
+        "label": "Начальник"
+      },
+      {
+        "value": 2,
+        "label": "Помощник"
+      },
+      {
+        "value": 3,
+        "label": "Посетитель"
+      },
+      {
+        "value": 4,
+        "label": "Клиент"
+      }
+    ]
+  }
 }

@@ -1,59 +1,64 @@
-import { Component, HostListener }                                   from '@angular/core';
-import { FormControl, FormGroup, Validators }                        from '@angular/forms';
-import { ActivatedRoute, Router }                                    from '@angular/router';
-import { markTouchedAndScroll }                                      from '@widgets/reactive/reactive-funcs';
-import { randomDate, randomIntNumber }                               from '@functions/random';
-import { finalize, tap }                                             from 'rxjs/operators';
-import { Observable }                                                from 'rxjs';
-import isEmpty                                                       from 'lodash/isEmpty';
-import identity                                                      from 'lodash/identity';
-import pickBy                                                        from 'lodash/pickBy';
-import includes                                                      from 'lodash/includes';
-import { Ticket, TicketsService }                                    from './tickets.service';
-import { CATEGORY_OPTIONS, INFORMER_POSITION_OPTIONS, LINK_OPTIONS } from '../../functions/dictionaries';
+import { Component, HostListener }            from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router }     from '@angular/router';
+import { markTouchedAndScroll }               from '@widgets/reactive/reactive-funcs';
+import { EMAIL_PATTERN }                      from '@widgets/reactive/reactive-info/reactive-validation-message';
+import { randomDate, randomIntNumber }        from '@functions/random';
+import { delay, filter, finalize, tap }       from 'rxjs/operators';
+import { Observable }                         from 'rxjs';
+import isEmpty                                from 'lodash/isEmpty';
+import identity                               from 'lodash/identity';
+import pickBy                                 from 'lodash/pickBy';
+import uniq                                   from 'lodash/uniq';
+import includes                               from 'lodash/includes';
+import { Ticket, TicketsService }             from './tickets.service';
+import { DictionariesService }                from '../../services/dictionaries';
+
+const toNumber = (str: string) => str && !isNaN(+str) && +str;
+const toDate = (str: string) => str && Date.parse(str) && new Date(str);
+const toNumberList = (strList: string[]) => strList && strList.map(toNumber);
 
 @Component({
   selector: 'app-tickets',
-  templateUrl: './tickets.component.html'
+  templateUrl: './tickets.component.html',
+  styles: [`nz-divider { margin: 4px 0 16px 0 !important }`]
 })
 export class TicketsComponent {
 
   isModalVisible: boolean;
-  isTicketsLoading: boolean;
   isSubmitTicketLoading: boolean;
 
-  tickets: Ticket[];
-  tickets$ = this.getTickets();
+  tickets$ = this.ticketsService.getTickets();
   submitTicket$: Observable<any>;
   deleteTicket$: Observable<any>;
 
-  categoryOptions = CATEGORY_OPTIONS;
-  linkOptions = LINK_OPTIONS;
-  informerPositionOptions = INFORMER_POSITION_OPTIONS;
-
+  get qp(): Params { return this.route.snapshot.queryParams; }
   ticketFg = new FormGroup({
     id: new FormControl(),
-    category: new FormControl(null, Validators.required),
-    date: new FormControl(null, Validators.required),
-    time: new FormControl(null, Validators.required),
-    link: new FormControl(null, Validators.required),
-    violation: new FormControl(null, Validators.required),
-    informer: new FormControl(null, Validators.required),
-    informerPosition: new FormControl(null, Validators.required),
-    informerContacts: new FormControl(null, Validators.required),
-    shortDescription: new FormControl(null, Validators.required),
-    fullDescription: new FormControl(null, Validators.required),
-    involvedDepartment: new FormControl(null, Validators.required),
-    involvedPersons: new FormControl(null, Validators.required),
-    informedPersons: new FormControl(null, Validators.required),
-    evidences: new FormControl(null, Validators.required),
-    additionalInformation: new FormControl(null, Validators.required),
-    uniqueNumber: new FormControl(null, Validators.required),
-    ticketDateSent: new FormControl(null, Validators.required),
-    companyActions: new FormControl(null, Validators.required)
+    category: new FormControl(toNumber(this.qp.category), Validators.required),
+    date: new FormControl(toDate(this.qp.date), Validators.required),
+    time: new FormControl(toDate(this.qp.time), Validators.required),
+    link: new FormControl(toNumber(this.qp.link), Validators.required),
+    violation: new FormControl(toNumberList(this.qp.violation), Validators.required),
+    informerGender: new FormControl(this.qp.informerGender, Validators.required),
+    informerName: new FormControl(this.qp.informerName, Validators.required),
+    informerPosition: new FormControl(toNumber(this.qp.informerPosition), Validators.required),
+    informerPhone: new FormControl(this.qp.informerPhone),
+    informerEmail: new FormControl(this.qp.informerEmail, Validators.pattern(EMAIL_PATTERN)),
+    description: new FormControl(this.qp.description, Validators.required),
+    involvedDepartment: new FormControl(this.qp.involvedDepartment, Validators.required),
+    involvedPersons: new FormControl(this.qp.involvedPersons, Validators.required),
+    informedPersons: new FormControl(this.qp.informedPersons, Validators.required),
+    evidences: new FormControl(this.qp.evidences, Validators.required),
+    additionalInformation: new FormControl(this.qp.additionalInformation, Validators.required),
+    uniqueNumber: new FormControl(this.qp.uniqueNumber, Validators.required),
+    ticketDateSent: new FormControl(toDate(this.qp.ticketDateSent), Validators.required),
+    companyActions: new FormControl(this.qp.companyActions, Validators.required)
   });
 
   valueChanges$ = this.ticketFg.valueChanges.pipe(
+    delay(10),
+    filter(() => this.ticketFg.enabled),
     tap(value => this.router.navigate([], {relativeTo: this.route, queryParams: pickBy(value, identity)}))
   );
 
@@ -67,28 +72,17 @@ export class TicketsComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ticketsService: TicketsService
+    private ticketsService: TicketsService,
+    public dictionariesService: DictionariesService
   ) {
-    const {queryParams} = this.route.snapshot;
-    if (!isEmpty(queryParams)) {
-      this.ticketFg.patchValue(queryParams);
-      this.isModalVisible = true;
-    }
-  }
-
-  getTickets(): Observable<Ticket[]> {
-    this.isTicketsLoading = true;
-    return this.ticketsService.getTickets().pipe(
-      tap(tickets => this.tickets = tickets),
-      finalize(() => this.isTicketsLoading = false)
-    );
+    if (!isEmpty(pickBy(this.ticketFg.value, identity))) this.isModalVisible = true;
   }
 
   submitTicket(): void {
     if (this.ticketFg.valid) {
       this.isSubmitTicketLoading = true;
       this.submitTicket$ = this.ticketsService.submitTicket(this.ticketFg.value).pipe(
-        tap(() => this.tickets$ = this.getTickets()),
+        tap(() => this.tickets$ = this.ticketsService.getTickets()),
         tap(() => this.closeModal()),
         finalize(() => this.isSubmitTicketLoading = false)
       );
@@ -98,7 +92,7 @@ export class TicketsComponent {
   deleteTicket(ticket: Ticket): void {
     ticket['isDeleteLoading'] = true;
     this.deleteTicket$ = this.ticketsService.deleteTicket(ticket).pipe(
-      tap(() => this.tickets$ = this.getTickets()),
+      tap(() => this.tickets$ = this.ticketsService.getTickets()),
       finalize(() => ticket['isDeleteLoading'] = false)
     );
   }
@@ -110,11 +104,12 @@ export class TicketsComponent {
 
   closeModal(): void {
     this.isModalVisible = false;
+    this.ticketFg.enable();
     this.ticketFg.reset();
     this.router.navigate([], {relativeTo: this.route, queryParams: null});
   }
-}
 
+}
 
 function randomTicket(): any {
   return {
@@ -122,12 +117,15 @@ function randomTicket(): any {
     date: randomDate(),
     time: randomDate(),
     link: randomIntNumber(1, 4),
-    violation: randomIntNumber() + ' violation ' + randomIntNumber(),
+    violation: uniq(Array.from({length: randomIntNumber(1, 4)}).map(() => randomIntNumber(1, 4))),
     informer: randomIntNumber() + ' informer ' + randomIntNumber(),
+    position: randomIntNumber(1, 4),
+    informerGender: ['Мужской', 'Женский'][randomIntNumber(0, 1)],
+    informerName: 'Иванов Петр Петрович',
+    informerPhone: 79123456789,
     informerPosition: randomIntNumber(1, 4),
-    informerContacts: randomIntNumber() + ' informerContacts ' + randomIntNumber(),
-    shortDescription: randomIntNumber() + ' shortDescription ' + randomIntNumber(),
-    fullDescription: randomIntNumber() + ' fullDescription ' + randomIntNumber(),
+    informerEmail: 'ivanov@petr.pt',
+    description: randomIntNumber() + ' description ' + randomIntNumber(),
     involvedDepartment: randomIntNumber() + ' involvedDepartment ' + randomIntNumber(),
     involvedPersons: randomIntNumber() + ' involvedPersons ' + randomIntNumber(),
     informedPersons: randomIntNumber() + ' informedPersons ' + randomIntNumber(),

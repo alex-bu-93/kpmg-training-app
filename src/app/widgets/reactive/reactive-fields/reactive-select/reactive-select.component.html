@@ -1,13 +1,13 @@
 <ng-container *ngIf="controlValueChanges$ | async"></ng-container>
 
-<div *ngIf="control" class="position-relative mb-3" [class.mb-0]="noMarginBottom">
+<div *ngIf="control" class="position-relative" [class.mb-0]="noMarginBottom" [class.mb-3]="!noMarginBottom">
   <app-reactive-label *ngIf="label"
                       [label]="label"
                       [fieldId]="fieldId"
                       [tooltip]="tooltip"
                       [hasRequiredIndicator]="hasRequiredIndicator">
   </app-reactive-label>
-  <nz-form-item class="w-100">
+  <nz-form-item class="w-100 mb-0">
     <nz-form-control [nzValidateStatus]="validationErrors ? 'error' : null">
       <nz-select nzShowSearch
                  nzNotFoundContent="Нет данных"

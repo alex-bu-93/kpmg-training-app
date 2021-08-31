@@ -5,13 +5,12 @@
                       [tooltip]="tooltip"
                       [hasRequiredIndicator]="hasRequiredIndicator">
   </app-reactive-label>
-  <nz-form-item>
+  <nz-form-item class="mb-0">
     <nz-form-control [nzValidateStatus]="validationErrors ? 'error' : null">
       <nz-date-picker nzFormat="dd.MM.yyyy"
                       class="w-100"
                       [nzId]="fieldId"
                       [formControl]="control"
-                      [nzDisabledDate]="disabledDatesFn"
                       (nzOnOpenChange)="!$event && control.markAsTouched()">
       </nz-date-picker>
     </nz-form-control>
