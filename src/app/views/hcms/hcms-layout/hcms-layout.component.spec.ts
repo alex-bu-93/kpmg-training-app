@@ -1,4 +1,5 @@
-import { RequestWrapperComponent }                                  from '@widgets/request-wrapper/request-wrapper.component';
+import { RouterTestingModule }                                      from '@angular/router/testing';
+import { RequestWrapperComponent }                                  from '@widgets/request-wrapper';
 import { MockBuilder, MockedComponentFixture, MockRender, ngMocks } from 'ng-mocks';
 import { of }                                                       from 'rxjs';
 import { NzFooterComponent, NzHeaderComponent }                     from 'ng-zorro-antd/layout';
@@ -19,6 +20,7 @@ describe('HcmsLayoutComponent', () => {
   beforeEach(() => MockBuilder(HcmsLayoutComponent, HcmsLayoutModule)
     .mock(RequestWrapperComponent)
     .mock(DictionariesService, {getDictionaries$: () => of(FAKE_DICTIONARIES) as any})
+    .mock(RouterTestingModule)
   );
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { ActivatedRoute }                                                     from '@angular/router';
 import { RouterTestingModule }                                                from '@angular/router/testing';
-import { RequestWrapperComponent }                                            from '@widgets/request-wrapper/request-wrapper.component';
+import { RequestWrapperComponent }                                            from '@widgets/request-wrapper';
 import { ReactiveSelectComponent }                                            from '@widgets/reactive/reactive-fields/reactive-select';
 import { ReactiveDatePickerComponent }                                        from '@widgets/reactive/reactive-fields/reactive-date-picker';
 import { ReactiveTextAreaComponent }                                          from '@widgets/reactive/reactive-fields/reactive-text-area';
