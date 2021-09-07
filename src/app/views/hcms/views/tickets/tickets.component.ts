@@ -28,7 +28,7 @@ export class TicketsComponent {
   isModalVisible: boolean;
   isSubmitTicketLoading: boolean;
 
-  tickets$ = this.ticketsService.getTickets();
+  tickets$ = this.ticketsService.getTickets$();
   submitTicket$: Observable<any>;
   deleteTicket$: Observable<any>;
 
@@ -82,7 +82,7 @@ export class TicketsComponent {
     if (this.ticketFg.valid) {
       this.isSubmitTicketLoading = true;
       this.submitTicket$ = this.ticketsService.submitTicket(this.ticketFg.value).pipe(
-        tap(() => this.tickets$ = this.ticketsService.getTickets()),
+        tap(() => this.tickets$ = this.ticketsService.getTickets$()),
         tap(() => this.closeModal()),
         finalize(() => this.isSubmitTicketLoading = false)
       );
@@ -92,7 +92,7 @@ export class TicketsComponent {
   deleteTicket(ticket: Ticket): void {
     ticket['isDeleteLoading'] = true;
     this.deleteTicket$ = this.ticketsService.deleteTicket(ticket).pipe(
-      tap(() => this.tickets$ = this.ticketsService.getTickets()),
+      tap(() => this.tickets$ = this.ticketsService.getTickets$()),
       finalize(() => ticket['isDeleteLoading'] = false)
     );
   }

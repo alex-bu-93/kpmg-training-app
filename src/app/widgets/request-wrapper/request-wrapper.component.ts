@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
-import { Observable }                                           from 'rxjs';
-import { tap }                                                  from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Observable }                                                                 from 'rxjs';
+import { tap }                                                                        from 'rxjs/operators';
 
 @Component({
   selector: 'app-request-wrapper',
@@ -15,6 +15,7 @@ import { tap }                                                  from 'rxjs/opera
 export class RequestWrapperComponent<T = any> implements OnChanges {
 
   @Input() request$: Observable<T>;
+  @Output() response = new EventEmitter();
 
   public data: T;
   isFirstRequest = true;
@@ -24,7 +25,8 @@ export class RequestWrapperComponent<T = any> implements OnChanges {
   getUpdatedRequest(request$: Observable<T>): Observable<T> {
     return request$?.pipe(
       tap(() => this.isFirstRequest && (this.isFirstRequest = false)),
-      tap(data => this.data = data)
+      tap(data => this.data = data),
+      tap(() => this.response.emit(this.data))
     );
   }
 }

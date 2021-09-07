@@ -34,7 +34,7 @@ export class TicketsService {
   ) {
   }
 
-  getTickets(): Observable<Ticket[]> {
+  getTickets$(): Observable<Ticket[]> {
     return this.http.get<Ticket[]>('tickets');
   }
 

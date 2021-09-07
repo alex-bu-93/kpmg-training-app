@@ -1,4 +1,6 @@
-<app-request-wrapper #dictionariesRs [request$]="dictionaries$">
+<app-request-wrapper #dictionariesRs
+                     [request$]="dictionaries$"
+                     (response)="testFn($event)">
   <nz-layout style="min-height: 100vh" class="layout">
     <nz-header class="d-flex align-items-center">
       <nz-tabset nzLinkRouter [nzLinkExact]="false">

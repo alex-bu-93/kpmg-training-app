@@ -1,1 +1,1 @@
-export * from './hcms-layout.component';
+export * from './hcms-layout.module';

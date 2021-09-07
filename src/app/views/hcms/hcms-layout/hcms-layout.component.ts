@@ -13,4 +13,8 @@ export class HcmsLayoutComponent {
     private dictionariesService: DictionariesService
   ) {
   }
+
+  testFn(response): void {
+    console.log(response);
+  }
 }
