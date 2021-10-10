@@ -11,6 +11,7 @@
                       class="w-100"
                       [nzId]="fieldId"
                       [formControl]="control"
+                      [nzPlaceHolder]="placeholder || 'Выберите дату'"
                       (nzOnOpenChange)="!$event && control.markAsTouched()">
       </nz-date-picker>
     </nz-form-control>

@@ -1,0 +1,96 @@
+<ng-container *ngIf="createQuestionnaire$ | async"></ng-container>
+
+<div class="d-flex mb-3">
+  <h5>Новый опросник</h5>
+  <app-questionnaire-preview class="ml-auto"
+                             [isDisabled]="fg.invalid"
+                             [questionnaire]="fg.value">
+  </app-questionnaire-preview>
+  <button nz-button nzType="primary"
+          class="ml-2"
+          [nzLoading]="isCreateQuestionnaireLoading"
+          (click)="onCreateQuestionnaire()">Создать
+  </button>
+</div>
+<div class="row">
+  <app-reactive-text-area class="col-md-4"
+                          fieldId="name" label="Название"
+                          [control]="fg.controls.name">
+  </app-reactive-text-area>
+  <app-reactive-text-area class="col-md-8"
+                          fieldId="description" label="Описание"
+                          [control]="fg.controls.description">
+  </app-reactive-text-area>
+</div>
+<div *ngFor="let field of fg.controls.fields['controls']
+                      let first = first
+                      let index = index"
+     class="position-relative">
+  <ng-container [ngTemplateOutlet]="fieldTmp"
+                [ngTemplateOutletContext]="{field: field, first: first, index: index}">
+  </ng-container>
+</div>
+<button nz-button
+        class="mt-3"
+        (click)="fg.controls.fields['push'](fieldFg)">
+  Добавить поле
+</button>
+
+
+<ng-template #fieldTmp
+             let-field="field"
+             let-first="first"
+             let-index="index">
+  <nz-divider></nz-divider>
+  <button *ngIf="!first"
+          nz-button nzDanger nzSize="small"
+          style="right: 50px; top: -12px"
+          class="position-absolute btn-outline-danger"
+          (click)="fg.controls.fields['removeAt'](index)">
+    <i nz-icon nzType="delete"></i> Удалить поле
+  </button>
+  <div class="row">
+    <app-reactive-input class="col-md-4"
+                        fieldId="label" label="Лейбл поля"
+                        [control]="field.controls.label">
+    </app-reactive-input>
+    <app-reactive-input class="col-md-4"
+                        fieldId="placeholder" label="Плейсхолдер поля"
+                        [control]="field.controls.placeholder">
+    </app-reactive-input>
+    <app-reactive-select class="col-md-4"
+                         fieldId="col" label="Доля поля в строке"
+                         [control]="field.controls.col"
+                         [options]="colOptions">
+    </app-reactive-select>
+    <app-reactive-select class="col-md-4"
+                         fieldId="type" label="Тип поля"
+                         [control]="field.controls.type"
+                         [options]="typeOptions">
+    </app-reactive-select>
+    <ng-container [ngSwitch]="field.controls.type.value">
+      <ng-container *ngSwitchCase="'input'" [ngTemplateOutlet]="inputTmp"></ng-container>
+      <ng-container *ngSwitchCase="'text-area'" [ngTemplateOutlet]="textAreaTmp"></ng-container>
+    </ng-container>
+  </div>
+
+
+  <ng-template #inputTmp>
+    <app-reactive-input class="col-md-8"
+                        fieldId="maxLength" label="Максимальная длина"
+                        [control]="field.controls.maxLength">
+    </app-reactive-input>
+  </ng-template>
+  <ng-template #textAreaTmp>
+    <app-reactive-input class="col-md-4"
+                        fieldId="minRows" label="Минимальная высота (количество строк)"
+                        [control]="field.controls.minRows">
+    </app-reactive-input>
+    <app-reactive-input class="col-md-4"
+                        fieldId="maxRows" label="Максимальная высота (количество строк)"
+                        [control]="field.controls.maxRows">
+    </app-reactive-input>
+  </ng-template>
+</ng-template>
+
+

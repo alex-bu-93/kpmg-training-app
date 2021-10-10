@@ -1,0 +1,30 @@
+<div class="d-flex mb-3">
+  <a nz-button nzType="primary"
+     [routerLink]="['/forms-constructor', 'new-questionnaire']">
+    Создать опросник
+  </a>
+</div>
+<app-request-wrapper #questionnairesRs [request$]="questionnaires$">
+  <nz-table #questionnairesTbl
+            nzSize="small" nzBordered nzNoResult="Нет данных для отображения"
+            [nzFrontPagination]="false"
+            [nzShowPagination]="false"
+            [nzData]="questionnairesRs.data">
+    <thead>
+    <tr>
+      <th>Наименование</th>
+      <th>Описание</th>
+      <th>Количество полей</th>
+      <th nzWidth="1px"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let questionnaire of questionnairesTbl.data">
+      <td>{{questionnaire.name}}</td>
+      <td>{{questionnaire.description}}</td>
+      <td>{{questionnaire.fields?.length}}</td>
+      <td><app-questionnaire-preview [questionnaire]="questionnaire"></app-questionnaire-preview></td>
+    </tr>
+    </tbody>
+  </nz-table>
+</app-request-wrapper>

@@ -13,7 +13,7 @@
                [formControl]="control"
                [type]="inputType"
                [placeholder]="placeholder || 'Введите'"
-               [maxLength]="maxLength || 500000"/>
+               [maxLength]="maxLength || maxLength === 0 ? maxLength : 500000"/>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>

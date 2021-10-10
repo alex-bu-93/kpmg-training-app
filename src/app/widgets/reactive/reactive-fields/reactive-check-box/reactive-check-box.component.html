@@ -1,0 +1,19 @@
+<div *ngIf="control" class="position-relative" [class.mb-0]="noMarginBottom" [class.mb-3]="!noMarginBottom">
+  <nz-form-item>
+    <nz-form-control [nzValidateStatus]="!noValidationMark && validationErrors ? 'error' : null">
+      <div class="d-flex">
+        <label nz-checkbox [id]="fieldId" [formControl]="control" (nzCheckedChange)="valueChange.emit($event)">
+          <app-reactive-label *ngIf="label"
+                              [label]="label"
+                              [fieldId]="fieldId"
+                              [tooltip]="tooltip"
+                              [hasRequiredIndicator]="hasRequiredIndicator">
+          </app-reactive-label>
+        </label>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <app-validation-message *ngIf="!noValidationMark && !noValidationMessage"
+                          [validationErrors]="validationErrors">
+  </app-validation-message>
+</div>

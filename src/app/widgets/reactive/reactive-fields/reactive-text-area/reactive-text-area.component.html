@@ -10,7 +10,10 @@
       <textarea nz-input
                 [formControl]="control"
                 [id]="fieldId"
-                [nzAutosize]="{ minRows: minRows || 4, maxRows: maxRows || 15 }"
+                [nzAutosize]="{
+                               minRows: minRows || minRows === 0 ? minRows : 4,
+                               maxRows: maxRows || maxRows === 0 ? maxRows : 15
+                              }"
                 [placeholder]="placeholder || 'Введите'"
                 (ngModelChange)="valueChange.emit($event)">
       </textarea>

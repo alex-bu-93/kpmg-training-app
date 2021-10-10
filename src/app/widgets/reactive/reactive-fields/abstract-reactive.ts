@@ -7,9 +7,9 @@ import { hasRequiredValidator }                                                 
 @Injectable()
 export abstract class AbstractReactive implements AfterContentInit, DoCheck {
 
-  @Input() fieldId: string | null = null;
-  @Input() control: AbstractControl | null = null;
-  @Input() label: string | null = null;
+  @Input() fieldId: string;
+  @Input() control: AbstractControl;
+  @Input() label: string;
   @Input() tooltip: string | TemplateRef<void>;
   @Input() prefixTmp: string | TemplateRef<void>;
   @Input() hasRequiredIndicator: boolean;

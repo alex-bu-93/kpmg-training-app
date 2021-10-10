@@ -2,7 +2,7 @@
 <ng-container *ngIf="submitTicket$ | async"></ng-container>
 <ng-container *ngIf="deleteTicket$ | async"></ng-container>
 
-<app-request-wrapper #ticketRs [request$]="tickets$">
+<app-request-wrapper #ticketsRs [request$]="tickets$">
   <button nz-button nzType="text"
           class="btn-outline-success mb-2"
           (click)="openModal()">Новое обращение
@@ -11,7 +11,7 @@
             nzBordered nzSize="small"
             nzNoResult="Нет данных для отображения"
             nzHideOnSinglePage nzSimple
-            [nzData]="ticketRs.data">
+            [nzData]="ticketsRs.data">
     <thead>
     <tr>
       <th nzWidth="1px">#</th>

@@ -184,57 +184,6 @@
       "ticketDateSent": "2015-08-09T23:05:57.378Z",
       "companyActions": "42 companyActions 86",
       "id": 7
-    },
-    {
-      "category": 2,
-      "date": "2019-08-12T15:09:52.736Z",
-      "time": "2021-01-28T12:02:23.050Z",
-      "link": 2,
-      "violation": [
-        1,
-        1,
-        1
-      ],
-      "informerGender": "Мужской",
-      "informerName": "Иванов Петр Петрович",
-      "informerPosition": 3,
-      "informerPhone": 79123456789,
-      "informerEmail": "ivanov@petr.pt",
-      "description": "33 description 64",
-      "involvedDepartment": "47 involvedDepartment 44",
-      "involvedPersons": "35 involvedPersons 46",
-      "informedPersons": "18 informedPersons 52",
-      "evidences": "14 evidences 47",
-      "additionalInformation": "37 additionalInformation 35",
-      "uniqueNumber": 10,
-      "ticketDateSent": "2014-06-08T04:45:42.773Z",
-      "companyActions": "97 companyActions 87",
-      "id": 8
-    },
-    {
-      "category": 1,
-      "date": "2016-11-24T15:34:31.370Z",
-      "time": "2014-06-10T16:54:12.524Z",
-      "link": 1,
-      "violation": [
-        3,
-        3
-      ],
-      "informerGender": "Мужской",
-      "informerName": "Иванов Петр Петрович",
-      "informerPosition": 2,
-      "informerPhone": 79123456789,
-      "informerEmail": "ivanov@petr.pt",
-      "description": "12 description 13",
-      "involvedDepartment": "51 involvedDepartment 30",
-      "involvedPersons": "88 involvedPersons 14",
-      "informedPersons": "77 informedPersons 11",
-      "evidences": "95 evidences 21",
-      "additionalInformation": "65 additionalInformation 13",
-      "uniqueNumber": 43,
-      "ticketDateSent": "2013-12-15T03:58:28.887Z",
-      "companyActions": "58 companyActions 17",
-      "id": 9
     }
   ],
   "dictionaries": {
@@ -314,5 +263,6 @@
         "label": "Клиент"
       }
     ]
-  }
+  },
+  "questionnaires": []
 }

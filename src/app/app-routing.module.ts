@@ -15,6 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./views/hcms/hcms.module').then(m => m.HcmsModule),
     canActivate: [AuthGuard]
   },
+  {path: 'forms-constructor', loadChildren: () => import('./views/forms-constructor').then(m => m.FormsConstructorModule)},
   {path: 'trainings', loadChildren: () => import('./views/trainings/trainings.module').then(m => m.TrainingsModule)},
   {path: '**', component: NopComponent}
 ];

@@ -1,0 +1,29 @@
+<ng-container [ngSwitch]="field.type">
+  <app-reactive-input *ngSwitchCase="'input'"
+                      [fieldId]="field.id"
+                      [label]="field.label"
+                      [placeholder]="field.placeholder"
+                      [control]="emptyControl"
+                      [maxLength]="field.maxLength">
+  </app-reactive-input>
+  <app-reactive-text-area *ngSwitchCase="'text-area'"
+                          [fieldId]="field.id"
+                          [label]="field.label"
+                          [placeholder]="field.placeholder"
+                          [control]="emptyControl"
+                          [minRows]="field.minRows"
+                          [maxRows]="field.maxRows">
+  </app-reactive-text-area>
+  <app-reactive-date-picker *ngSwitchCase="'date-picker'"
+                            [fieldId]="field.id"
+                            [label]="field.label"
+                            [placeholder]="field.placeholder"
+                            [control]="emptyControl">
+  </app-reactive-date-picker>
+  <app-reactive-check-box *ngSwitchCase="'check-box'"
+                          [fieldId]="field.id"
+                          [label]="field.label"
+                          [placeholder]="field.placeholder"
+                          [control]="emptyControl">
+  </app-reactive-check-box>
+</ng-container>

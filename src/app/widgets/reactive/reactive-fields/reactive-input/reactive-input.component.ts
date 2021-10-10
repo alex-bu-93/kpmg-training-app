@@ -7,7 +7,7 @@ import { AbstractReactive }                                    from '../abstract
 })
 export class ReactiveInputComponent extends AbstractReactive {
 
-  @Input() maxLength: number | null;
+  @Input() maxLength: number;
   @Input() inputType = 'text';
 
 }
