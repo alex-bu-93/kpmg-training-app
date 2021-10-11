@@ -12,7 +12,7 @@
     "start-prod": "ng serve --configuration production --port 4201",
     "ci:clean": "rimraf ./dist",
     "ci:test": "ng test --watch=false --browsers=ChromeHeadlessCustom",
-    "ci:build": "ng build"
+    "ci:build": "ng build --configuration production"
   },
   "private": true,
   "dependencies": {
