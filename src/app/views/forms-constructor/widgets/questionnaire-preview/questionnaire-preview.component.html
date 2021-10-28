@@ -1,9 +1,4 @@
-<button nz-button
-        class="ml-auto"
-        [disabled]="isDisabled"
-        (click)="isPreviewModalVisible = true">
-  Предпросмот
-</button>
+<button nz-button [disabled]="isDisabled" (click)="isPreviewModalVisible = true">Предпросмот</button>
 
 <nz-modal [nzFooter]="null"
           [nzTitle]="questionnaire?.name"
@@ -12,11 +7,16 @@
           [(nzVisible)]="isPreviewModalVisible"
           (nzOnCancel)="isPreviewModalVisible = false">
   <ng-template nzModalContent>
-    <div class="row">
-      <app-reactive-field *ngFor="let field of questionnaire?.fields"
-                          [ngClass]="'col-md-' + field.col"
-                          [field]="field">
-      </app-reactive-field>
-    </div>
+    <p *ngIf="questionnaire. as description">{{description}}</p>
+    <ng-container *ngFor="let section of questionnaire.sections">
+      <nz-divider nzOrientation="left" [nzText]="section.name"></nz-divider>
+      <p *ngIf="section.description as description">{{description}}</p>
+      <div class="row">
+        <app-reactive-field *ngFor="let field of section?.fields"
+                            [ngClass]="'col-md-' + field.col"
+                            [field]="field">
+        </app-reactive-field>
+      </div>
+    </ng-container>
   </ng-template>
 </nz-modal>

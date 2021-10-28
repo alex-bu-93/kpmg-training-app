@@ -4,12 +4,14 @@ import { RouterModule }               from '@angular/router';
 import { RequestWrapperModule }       from '@widgets/request-wrapper';
 import { NzButtonModule }             from 'ng-zorro-antd/button';
 import { NzTableModule }              from 'ng-zorro-antd/table';
+import { NzIconModule }               from 'ng-zorro-antd/icon';
 import { QuestionnairesComponent }    from './questionnaires.component';
 import { QuestionnairePreviewModule } from '../../widgets/questionnaire-preview';
 
 const ANT_DESIGN_MODULES = [
   NzButtonModule,
-  NzTableModule
+  NzTableModule,
+  NzIconModule
 ];
 
 @NgModule({

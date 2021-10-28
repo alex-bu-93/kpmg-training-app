@@ -16,6 +16,7 @@
       <th>Описание</th>
       <th>Количество полей</th>
       <th nzWidth="1px"></th>
+      <th nzWidth="1px"></th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +25,14 @@
       <td>{{questionnaire.description}}</td>
       <td>{{questionnaire.fields?.length}}</td>
       <td><app-questionnaire-preview [questionnaire]="questionnaire"></app-questionnaire-preview></td>
+      <td>
+        <button nz-button nzDanger
+                [nzLoading]="questionnaire['isDeleteLoading']"
+                (click)="deleteQuestionnaire(questionnaire)">
+          <ng-container *ngIf="questionnaire['deleteQuestionnaire$'] | async"></ng-container>
+          <i nz-icon nzType="delete"></i>
+        </button>
+      </td>
     </tr>
     </tbody>
   </nz-table>

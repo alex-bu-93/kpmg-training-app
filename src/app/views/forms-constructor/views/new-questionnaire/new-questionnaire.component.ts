@@ -6,30 +6,20 @@ import { markTouchedAndScroll }                                  from '@widgets/
 import { Observable }                                            from 'rxjs';
 import { finalize, tap }                                         from 'rxjs/operators';
 
+const COL_OPTIONS = Array.from({length: 12}).map((x, i) => i + 1).map(x => ({label: x, value: x}));
+const FIELD_TYPE_OPTIONS = [
+  {label: 'Текст (короткий ответ)', value: 'input'},
+  {label: 'Текст (развернутый ответ)', value: 'text-area'},
+  {label: 'Флаг', value: 'check-box'},
+  {label: 'Календарь', value: 'date-picker'}
+];
+
 @Component({
   selector: 'app-new-questionnaire',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './new-questionnaire.component.html'
 })
 export class NewQuestionnaireComponent {
-
-  colOptions = Array.from({length: 12}).map((x, i) => i + 1).map(x => ({label: x, value: x}));
-  typeOptions = [
-    {label: 'Текст (короткий ответ)', value: 'input'},
-    {label: 'Текст (развернутый ответ)', value: 'text-area'},
-    {label: 'Флаг', value: 'check-box'},
-    {label: 'Календарь', value: 'date-picker'}
-  ];
-
-  isCreateQuestionnaireLoading: boolean;
-
-  fg = new FormGroup({
-    name: new FormControl(null, Validators.required),
-    description: new FormControl(null, Validators.required),
-    fields: new FormArray([this.fieldFg], Validators.required),
-  });
-
-  createQuestionnaire$: Observable<any>;
 
   get fieldFg(): FormGroup {
     return new FormGroup({
@@ -43,6 +33,26 @@ export class NewQuestionnaireComponent {
     });
   }
 
+  get sectionFg(): FormGroup {
+    return new FormGroup({
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(),
+      fields: new FormArray([this.fieldFg], Validators.required),
+    });
+  }
+
+  colOptions = COL_OPTIONS;
+  typeOptions = FIELD_TYPE_OPTIONS;
+
+  isCreateQuestionnaireLoading: boolean;
+  createQuestionnaire$: Observable<any>;
+
+  fg = new FormGroup({
+    name: new FormControl(null, Validators.required),
+    description: new FormControl(),
+    sections: new FormArray([this.sectionFg], Validators.required),
+  });
+
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -53,7 +63,8 @@ export class NewQuestionnaireComponent {
   onCreateQuestionnaire(): void {
     if (this.fg.valid) {
       this.isCreateQuestionnaireLoading = true;
-      this.createQuestionnaire$ = this.questionnairesService.createQuestionnaire(this.fg.value).pipe(
+      this.createQuestionnaire$ = this.questionnairesService.postQuestionnaire(this.fg.value).pipe(
+        tap(() => this.createQuestionnaire$ = null),
         tap(() => this.router.navigate(['forms-constructor', 'questionnaires'])),
         finalize(() => { this.isCreateQuestionnaireLoading = false; this.cdr.markForCheck(); })
       );

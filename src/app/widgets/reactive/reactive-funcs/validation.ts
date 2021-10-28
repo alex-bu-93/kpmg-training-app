@@ -21,16 +21,23 @@ function getVerticalCoordinate(el): number {
  * Method validates if all control of the input form group are valid
  * If not, it marks them touched to trigger required validation procedures
  */
-export function markTouchedAndScroll(formGroup: FormGroup): void {
-  formGroup.markAllAsTouched();
-  Object.keys(formGroup.controls).every(key => {
-    if (formGroup.get(key).status === 'INVALID') {
-      const el = document.getElementById(key);
-      if (el) { el.focus(); window.scrollTo({top: getVerticalCoordinate(el), behavior: 'smooth'}); }
-      return false;
+export function markTouchedAndScroll(fg: AbstractControl, aggKey?: string): void {
+  for (const keyFg of Object.keys(fg['controls'])) {
+    let control = fg.get(keyFg); control.markAsTouched();
+    let key = [aggKey, keyFg].filter(Boolean).join('_');
+    if (control.status === 'INVALID') {
+      if (Array.isArray(control.value)) {
+        for (const index of Object.keys(control['controls'])) {
+          control = control['controls'][index];
+          key += `_${index}`;
+          markTouchedAndScroll(control, key);
+        }
+      } else {
+        const el = document.getElementById(key);
+        if (el) { el.focus(); window.scrollTo({top: getVerticalCoordinate(el), behavior: 'smooth'}); break; }
+      }
     }
-    return true;
-  });
+  }
 }
 
 export function passwordConfirmValidator(controlName: string, matchingControlName: string): ValidatorFn {
